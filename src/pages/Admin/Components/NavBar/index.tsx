@@ -17,10 +17,8 @@ const Navbar = () => {
 
         <NotificationsIcon style={{ marginLeft: "20px" }} />
 
-        <Avatar style={{ marginLeft: "20px" }}>
-          <UserNav />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
+          <UserNav/>
+          
       </div>
     </div>
   );

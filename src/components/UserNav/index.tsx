@@ -16,19 +16,19 @@ export function UserNav() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-          <Avatar className="h-9 w-9">
+          <Avatar className="h-9 w-9 ml-5">
             <AvatarImage
               src="https://avatars.githubusercontent.com/u/70959791?v=4"
               alt="@shadcn"
             />
-            <AvatarFallback>SC</AvatarFallback>
+            <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">shadcn</p>
+            <p className="text-sm font-medium leading-none">Guilherme</p>
             <p className="text-xs leading-none text-muted-foreground">
               m@example.com
             </p>
@@ -37,7 +37,7 @@ export function UserNav() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            Profile
+            Perfil
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
@@ -45,7 +45,7 @@ export function UserNav() {
             <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            Settings
+            Configuração
             <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>New Team</DropdownMenuItem>
