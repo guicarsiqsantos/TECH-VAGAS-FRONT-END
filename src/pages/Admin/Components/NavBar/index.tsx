@@ -1,9 +1,10 @@
 import style from "./NavBar.module.css";
 
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 import { Input } from "@/components/ui/input";
+import { UserNav } from "@/components/UserNav";
 
 const Navbar = () => {
   return (
@@ -17,7 +18,7 @@ const Navbar = () => {
         <NotificationsIcon style={{ marginLeft: "20px" }} />
 
         <Avatar style={{ marginLeft: "20px" }}>
-          <AvatarImage src="https://avatars.githubusercontent.com/u/70959791?v=4" />
+          <UserNav />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </div>

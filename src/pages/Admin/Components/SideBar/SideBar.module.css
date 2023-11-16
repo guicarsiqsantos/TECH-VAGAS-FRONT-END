@@ -1,8 +1,8 @@
 .container {
-    display: block;
+    flex: 1 1 0%;
     width: 12%;
     min-width: 200px;
-    height: 100vh;
+    
     background-color: #2E3E4E;
 }
 
