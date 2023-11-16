@@ -1,8 +1,9 @@
 .container {
     display: block;
     width: 12%;
+    min-width: 200px;
     height: 100vh;
-    background-color: #344D5B;
+    background-color: #2E3E4E;
 }
 
 .image {
@@ -17,7 +18,7 @@
 }
 
 .navHeader {
-    font-size: 1.6vh;
+    font-size: 1.1rem;
     padding: 0px 0px 5px 0px;
 }
 
@@ -34,4 +35,14 @@
 
 .sidebar li:hover{
     color: #367BCD;
+}
+.sidebar li:nth-child(1) {
+    color: #D4D4D4;
+    -webkit-touch-callout: none;  /* iPhone OS, Safari */
+    -webkit-user-select: none;    /* Chrome, Safari 3 */
+    -khtml-user-select: none;     /* Safari 2 */
+    -moz-user-select: none;       /* Firefox */
+    -ms-user-select: none;        /* IE10+ */
+    user-select: none
+    
 }

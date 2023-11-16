@@ -20,7 +20,7 @@ const SideBar = () => {
           <span>Geral</span>
         </li>
         <li>
-          <NavLink to="/dashboard">
+          <NavLink to="/adm/dashboard">
             <DashboardIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
@@ -29,7 +29,7 @@ const SideBar = () => {
         </li>
 
         <li>
-          <NavLink to="/Vagas">
+          <NavLink to="/adm/vagas">
             <AssignmentIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
@@ -37,7 +37,7 @@ const SideBar = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/Empresa">
+          <NavLink to="/adm/empresa">
             <ApartmentIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
