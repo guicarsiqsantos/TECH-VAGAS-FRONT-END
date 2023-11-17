@@ -1,5 +1,15 @@
 "use client";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
+
 import { CrossIcon } from "lucide-react";
 import { Table } from "@tanstack/react-table";
 
@@ -9,6 +19,7 @@ import { DataTableViewOptions } from "./data-table-view-options";
 
 import { priorities, statuses } from "../data/data";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
+
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -44,6 +55,20 @@ export function DataTableToolbar<TData>({
             options={priorities}
           />
         )}
+        <Dialog>
+          <DialogTrigger>
+            <Button variant="outline" style={{ display: "flex", height: "32px" }}>Cadastrar Empresa</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Cadastrar Empresa</DialogTitle>
+              <DialogDescription>Esta tela destina-se ao cadastro de todas as empresas no sistema.</DialogDescription>
+            </DialogHeader>
+            <Input type="email" id="email" placeholder="Email" />
+          </DialogContent>
+        </Dialog>
+
+
         {isFiltered && (
           <Button
             variant="ghost"
