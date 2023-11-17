@@ -64,7 +64,15 @@ export function DataTableToolbar<TData>({
               <DialogTitle>Cadastrar Empresa</DialogTitle>
               <DialogDescription>Esta tela destina-se ao cadastro de todas as empresas no sistema.</DialogDescription>
             </DialogHeader>
-            <Input type="email" id="email" placeholder="Email" />
+            <label style={{fontWeight:"600"}}>Razão Social</label>
+            <Input type="text" id="razaosocial" placeholder="Razão Social"/>
+            <label style={{fontWeight:"600"}}>Email</label>
+            <Input type="text" id="responsavelEST" placeholder="Responsável Estágio"/>
+            <label style={{fontWeight:"600"}}>CNPJ</label>
+            <Input type="text" id="CNPJ" placeholder="CNPJ"/>
+            <label style={{fontWeight:"600"}}>Localidade</label>
+            <Input type="text" id="localidade" placeholder="Localidade"/>
+            
           </DialogContent>
         </Dialog>
 
