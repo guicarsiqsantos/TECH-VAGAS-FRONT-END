@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import {
   Dialog,
   DialogContent,
@@ -7,8 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-
+} from "@/components/ui/dialog";
 
 import { CrossIcon } from "lucide-react";
 import { Table } from "@tanstack/react-table";
@@ -20,7 +21,6 @@ import { DataTableViewOptions } from "./data-table-view-options";
 import { priorities, statuses } from "../data/data";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 
-
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
 }
@@ -29,6 +29,12 @@ export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
+
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(!open);
+  };
 
   return (
     <div className="flex items-center justify-between">
@@ -55,27 +61,44 @@ export function DataTableToolbar<TData>({
             options={priorities}
           />
         )}
-        <Dialog>
+        <Dialog open={open} onOpenChange={handleOpen}>
           <DialogTrigger>
-            <Button variant="outline" style={{ display: "flex", height: "32px" }}>Cadastrar Empresa</Button>
+            <Button
+              onClick={handleOpen}
+              variant="outline"
+              style={{ display: "flex", height: "32px" }}
+            >
+              Cadastrar Empresa
+            </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Cadastrar Empresa</DialogTitle>
-              <DialogDescription>Esta tela destina-se ao cadastro de todas as empresas no sistema.</DialogDescription>
+              <DialogDescription>
+                Esta tela destina-se ao cadastro de todas as empresas no
+                sistema.
+              </DialogDescription>
             </DialogHeader>
-            <label style={{fontWeight:"600"}}>Razão Social</label>
-            <Input type="text" id="razaosocial" placeholder="Razão Social"/>
-            <label style={{fontWeight:"600"}}>Email</label>
-            <Input type="text" id="responsavelEST" placeholder="Responsável Estágio"/>
-            <label style={{fontWeight:"600"}}>CNPJ</label>
-            <Input type="text" id="CNPJ" placeholder="CNPJ"/>
-            <label style={{fontWeight:"600"}}>Localidade</label>
-            <Input type="text" id="localidade" placeholder="Localidade"/>
-            
+            <label style={{ fontWeight: "600" }}>Razão Social</label>
+            <Input type="text" id="razaosocial" placeholder="Razão Social" />
+            <label style={{ fontWeight: "600" }}>Responsável Estágio</label>
+            <Input
+              type="text"
+              id="responsavelEST"
+              placeholder="Responsável Estágio"
+            />
+            <label style={{ fontWeight: "600" }}>CNPJ</label>
+            <Input type="text" id="CNPJ" placeholder="CNPJ" />
+            <label style={{ fontWeight: "600" }}>Localidade</label>
+            <Input type="text" id="localidade" placeholder="Localidade" />
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Button variant="outline" onClick={handleOpen}>
+                Cancelar
+              </Button>
+              <Button style={{ backgroundColor: "#82B440" }}>Salvar</Button>
+            </div>
           </DialogContent>
         </Dialog>
-
 
         {isFiltered && (
           <Button
