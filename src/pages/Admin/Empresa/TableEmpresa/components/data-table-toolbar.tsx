@@ -20,6 +20,7 @@ import { DataTableViewOptions } from "./data-table-view-options";
 
 import { priorities, statuses } from "../data/data";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
+import FormsEmpresa from "./FormsEmpresa";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -81,24 +82,7 @@ export function DataTableToolbar<TData>({
                 sistema.
               </DialogDescription>
             </DialogHeader>
-            <label style={{ fontWeight: "600" }}>Razão Social</label>
-            <Input type="text" id="razaosocial" placeholder="Razão Social" />
-            <label style={{ fontWeight: "600" }}>Responsável Estágio</label>
-            <Input
-              type="text"
-              id="responsavelEST"
-              placeholder="Responsável Estágio"
-            />
-            <label style={{ fontWeight: "600" }}>CNPJ</label>
-            <Input type="text" id="CNPJ" placeholder="CNPJ" />
-            <label style={{ fontWeight: "600" }}>Localidade</label>
-            <Input type="text" id="localidade" placeholder="Localidade" />
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Button variant="outline" onClick={handleOpen}>
-                Cancelar
-              </Button>
-              <Button style={{ backgroundColor: "#82B440" }}>Salvar</Button>
-            </div>
+            <FormsEmpresa handleOpen={handleOpen} />
           </DialogContent>
         </Dialog>
 

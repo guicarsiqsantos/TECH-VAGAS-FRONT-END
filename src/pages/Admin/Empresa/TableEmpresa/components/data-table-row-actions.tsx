@@ -18,6 +18,7 @@ import {
 
 import { labels } from "../data/data";
 import { empresaSchema } from "../data/schema";
+import api from "@/services/api";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -27,6 +28,17 @@ export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
   const empresa = empresaSchema.parse(row.original);
+
+  async function handleDeleteEmpresa(id: number) {
+    await api
+      .delete(`/Concedente/${id}`)
+      .then((resp) => {
+        console.log(resp);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
 
   return (
     <DropdownMenu>
@@ -57,7 +69,12 @@ export function DataTableRowActions<TData>({
         </DropdownMenuSub>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <p className="font-bold text-red-700">🗑️ Delete</p>
+          <p
+            className="font-bold text-red-700"
+            onClick={() => handleDeleteEmpresa(empresa.concedenteId)}
+          >
+            🗑️ Delete
+          </p>
           <DropdownMenuShortcut>del</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>
