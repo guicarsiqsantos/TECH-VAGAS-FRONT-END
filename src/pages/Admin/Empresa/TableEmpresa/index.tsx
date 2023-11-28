@@ -20,7 +20,7 @@ export default function TaskPage() {
       setEmpresas(empresaData);
     })();
   }, []);
-
+  console.log(empresas);
   return (
     <>
       <div className="hidden flex-1 flex-col space-y-8 p-8 md:flex">
