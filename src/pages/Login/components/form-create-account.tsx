@@ -1,4 +1,5 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -13,10 +14,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/ui/icons";
 import { Badge } from "@/components/ui/badge";
+import api from "@/services/api";
 
 export default function FormCreateAccount() {
-  const [isLoading] = useState<boolean>(false);
-  const [message] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [message, setMessage] = useState<string | null>(null);
   const [credencial, setCredencial] = useState({
     email: "",
     password: "",
@@ -29,6 +32,22 @@ export default function FormCreateAccount() {
       [event.target.name]: event.target.value,
     });
   }
+
+  async function handleLogin(event: FormEvent) {
+    event.preventDefault();
+    setIsLoading(true);
+    try {
+      await api
+        .post("/login", { email: credencial.email, senha: credencial.password })
+        .then(() => {
+          navigate("/dashboard");
+        })
+        .finally(() => setIsLoading(false));
+    } catch (error) {
+      setMessage("Falha ao realizar login");
+    }
+  }
+
   return (
     <Tabs defaultValue="authLogin" className="w-[400px]">
       <TabsList className="grid w-full grid-cols-2">
@@ -36,7 +55,7 @@ export default function FormCreateAccount() {
         <TabsTrigger value="account">Criar conta</TabsTrigger>
       </TabsList>
       <TabsContent value="authLogin">
-        <form onSubmit={() => {}}>
+        <form onSubmit={handleLogin}>
           <Card className="border-none">
             <CardHeader>
               <CardTitle>Acessar sua conta</CardTitle>
