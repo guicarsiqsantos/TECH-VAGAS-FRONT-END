@@ -1,13 +1,11 @@
-import Banner from "@/components/Banner";
+import Cover from "@/components/Cover";
 import Header from "@/components/Header";
 
-const Home = () => {
+export default function Home() {
   return (
-    <div>
+    <>
       <Header />
-      <Banner />
-    </div>
+      <Cover />
+    </>
   );
-};
-
-export default Home;
+}
