@@ -2,6 +2,10 @@ import { useNavigate } from "react-router-dom";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { VagasProps } from "../table/columns";
 import {
   Form,
   FormControl,
@@ -10,11 +14,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+
 import api from "@/services/api";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { VagasProps } from "../table/columns";
+import { useEffect, useState } from "react";
+import { ConcendenteProps } from "../../empresas/table/columns";
+import { Combobox, ComboboxProps } from "@/components/ComboBox";
 
 const formSchema = z.object({
   quantidade: z.string(),
@@ -24,7 +28,10 @@ const formSchema = z.object({
     .string()
     .min(2, { message: "Cidade deve ter no mínimo 2 caracteres." })
     .max(50),
-  descricao: z.string(),
+  descricao: z
+    .string()
+    .max(200, { message: "Limite de 200 caracteres" })
+    .optional(),
   titulo: z.string(),
   localidadeTrabalho: z.string(),
   horarioEntrada: z.string(),
@@ -37,7 +44,11 @@ type FormCadastroProps = z.infer<typeof formSchema>;
 
 const FormCadastroVagas = ({ data }: { data: VagasProps }) => {
   const navigate = useNavigate();
-  const isEdit = Object.keys(data).length === 0; // true or false
+  const [isEdit, setIsEdit] = useState(false);
+  const [dataComboBox, setDataComboBox] = useState<ComboboxProps[]>([]);
+
+  const [valueComboBox, setValueComboBox] = useState("");
+
   const form = useForm<FormCadastroProps>({
     resolver: zodResolver(formSchema),
     values: {
@@ -68,23 +79,71 @@ const FormCadastroVagas = ({ data }: { data: VagasProps }) => {
     },
   });
 
+  useEffect(() => {
+    (async () => {
+      const concedenteSelecionado = data.concedenteId;
+      const checkIsedit = Object.keys(data).length;
+      if (checkIsedit > 0) setIsEdit(true);
+      if (concedenteSelecionado) {
+        setValueComboBox(concedenteSelecionado.toString());
+      }
+
+      const resp: ConcendenteProps[] = (await api.get("concedente")).data;
+
+      setDataComboBox(
+        resp.map((item) => {
+          return {
+            value: item.concedenteId.toString(),
+            label: item.razaoSocial,
+          };
+        })
+      );
+    })();
+  }, [data]);
+
   async function onSubmit(values: FormCadastroProps) {
+    const dataVagas = { ...values, concedenteId: Number(valueComboBox) };
     isEdit
       ? await api
-          .post("/vagas", values)
-          .finally(() => navigate("/dashboard/vagas"))
-      : await api
           .put(`/vagas/${data.vagasId}`, {
-            ...values,
+            ...dataVagas,
             vagasId: data.vagasId,
           })
+          .finally(() => navigate("/dashboard/vagas"))
+      : await api
+          .post("/vagas", dataVagas)
           .finally(() => navigate("/dashboard/vagas"));
   }
   return (
     <Card className="p-4">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <CardContent>
+          <CardContent className="grid grid-cols-2 gap-x-7">
+            <FormField
+              control={form.control}
+              name="concedenteId"
+              render={({ field }) => (
+                <FormItem className="mt-5 flex flex-col">
+                  <FormLabel>Codigo da Empresa</FormLabel>
+                  <FormControl>
+                    <Combobox
+                      data={dataComboBox}
+                      value={valueComboBox}
+                      setValue={setValueComboBox}
+                    />
+
+                    {/* <Input
+                      placeholder="Codigo da Empresa"
+                      {...field}
+                      onChange={(event) =>
+                        field.onChange(Number(event.target.value))
+                      }
+                    /> */}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="quantidade"
@@ -92,7 +151,11 @@ const FormCadastroVagas = ({ data }: { data: VagasProps }) => {
                 <FormItem className="mt-5">
                   <FormLabel>Quantidade de Vagas</FormLabel>
                   <FormControl>
-                    <Input placeholder="Quantidade de Vagas" {...field} />
+                    <Input
+                      type="text"
+                      placeholder="Quantidade de Vagas"
+                      {...field}
+                    />
                   </FormControl>
 
                   <FormMessage />
@@ -188,7 +251,11 @@ const FormCadastroVagas = ({ data }: { data: VagasProps }) => {
                 <FormItem className="mt-5">
                   <FormLabel>Horario de Entrada</FormLabel>
                   <FormControl>
-                    <Input placeholder="Horario de Entrada" {...field} />
+                    <Input
+                      type="time"
+                      placeholder="Horario de Entrada"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -201,7 +268,11 @@ const FormCadastroVagas = ({ data }: { data: VagasProps }) => {
                 <FormItem className="mt-5">
                   <FormLabel>Horario de Saida</FormLabel>
                   <FormControl>
-                    <Input placeholder="Horario de Saida" {...field} />
+                    <Input
+                      type="time"
+                      placeholder="Horario de Saida"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -220,29 +291,16 @@ const FormCadastroVagas = ({ data }: { data: VagasProps }) => {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="concedenteId"
-              render={({ field }) => (
-                <FormItem className="mt-5">
-                  <FormLabel>Codigo da Empresa</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Codigo da Empresa" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
           </CardContent>
 
           <CardFooter className="flex gap-4">
             <Button type="submit">
-              {isEdit ? "Cadastrar" : "Salvar alterações"}
+              {isEdit ? "Salvar alterações" : "Cadastrar"}
             </Button>
             <Button
               type="button"
               variant="secondary"
-              onClick={() => navigate("/dashboard/empresas")}
+              onClick={() => navigate("/dashboard/vagas")}
             >
               Voltar
             </Button>

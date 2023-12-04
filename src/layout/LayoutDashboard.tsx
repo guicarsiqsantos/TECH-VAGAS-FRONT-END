@@ -5,7 +5,7 @@ import { HomeIcon } from "lucide-react";
 export default function LayoutDashboard() {
   const location = useLocation();
   return (
-    <div className="flex h-screen">
+    <div className="flex min-h-screen">
       <Sidebar />
       <div className="flex-1 p-4">
         <div className="flex items-center gap-3 mb-4 border-b pb-4">
