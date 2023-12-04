@@ -55,6 +55,13 @@ export default function Sidebar() {
                 Empresas
               </Button>
             </NavLink>
+
+            <NavLink to="/dashboard/vagas">
+              <Button variant="ghost" className="w-full justify-start">
+                <ApartmentIcon style={{ width: "15px", marginRight: "9px" }} />
+                Vagas
+              </Button>
+            </NavLink>
           </div>
         </div>
 

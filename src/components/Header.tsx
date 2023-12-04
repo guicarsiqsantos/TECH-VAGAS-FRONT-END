@@ -17,10 +17,10 @@ export default function Header() {
 
         <div className="flex gap-4">
           <Button asChild className="bg-blue-500 w-[150px]">
-            <NavLink to={"/"}>Entrar</NavLink>
+            <NavLink to={"/login"}>Entrar</NavLink>
           </Button>
           <Button asChild variant="outline" className="w-[150px]">
-            <NavLink to={"/"}>Cadastrar</NavLink>
+            <NavLink to={"/login"}>Cadastrar</NavLink>
           </Button>
         </div>
       </div>

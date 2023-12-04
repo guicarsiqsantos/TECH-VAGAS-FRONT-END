@@ -7,6 +7,8 @@ import LayoutDashboard from "./layout/LayoutDashboard";
 import Empresas from "./pages/dashboard/empresas";
 import CadastroEmpresa from "./pages/dashboard/empresas/cadastro";
 import PerfilEmpresa from "./pages/dashboard/empresas/cadastro/perfil";
+import Vagas from "./pages/dashboard/Vagas";
+import CadastroVagas from "./pages/dashboard/Vagas/cadastro";
 
 function App() {
   return (
@@ -17,9 +19,14 @@ function App() {
       <Route element={<LayoutDashboard />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/empresas" element={<Empresas />} />
+        <Route path="/dashboard/vagas" element={<Vagas />} />
         <Route
           path="/dashboard/empresas/cadastro/:id?"
           element={<CadastroEmpresa />}
+        />
+        <Route
+          path="/dashboard/vagas/cadastro/:id?"
+          element={<CadastroVagas />}
         />
         <Route
           path="/dashboard/empresas/perfil/:id"
