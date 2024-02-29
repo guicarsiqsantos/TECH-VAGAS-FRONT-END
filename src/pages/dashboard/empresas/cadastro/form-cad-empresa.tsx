@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -47,6 +48,27 @@ const FormCadastroEmpresa = ({ data }: { data: ConcendenteProps }) => {
     },
   });
 
+  const [cnpjMask, setCnpjMask] = useState('');
+
+  function formatCNPJ(cnpjMask:string) {
+    // Remove caracteres não numéricos do CNPJ
+    cnpjMask = cnpjMask.replace(/\D/g, '');
+
+    // Aplica a máscara
+    cnpjMask = cnpjMask.replace(/^(\d{2})(\d)/, '$1.$2');
+    cnpjMask = cnpjMask.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+    cnpjMask = cnpjMask.replace(/\.(\d{3})(\d)/, '.$1/$2');
+    cnpjMask = cnpjMask.replace(/(\d{4})(\d)/, '$1-$2');
+
+    return cnpjMask;
+  }
+
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const inputCnpj = event.target.value;
+    const formattedCnpj = formatCNPJ(inputCnpj);
+    setCnpjMask(formattedCnpj);
+  }
+
   async function onSubmit(values: FormCadastroProps) {
     isEdit
       ? await api
@@ -71,7 +93,7 @@ const FormCadastroEmpresa = ({ data }: { data: ConcendenteProps }) => {
                 <FormItem className="mt-5">
                   <FormLabel>Razão Social</FormLabel>
                   <FormControl>
-                    <Input placeholder="razão social" {...field} />
+                    <Input placeholder="Nome da Empresa" {...field} />
                   </FormControl>
 
                   <FormMessage />
@@ -86,7 +108,7 @@ const FormCadastroEmpresa = ({ data }: { data: ConcendenteProps }) => {
                 <FormItem className="mt-5">
                   <FormLabel>Responsável</FormLabel>
                   <FormControl>
-                    <Input placeholder="nome do responsável" {...field} />
+                    <Input placeholder="Nome do responsável" {...field} />
                   </FormControl>
 
                   <FormMessage />
@@ -101,7 +123,7 @@ const FormCadastroEmpresa = ({ data }: { data: ConcendenteProps }) => {
                 <FormItem className="mt-5">
                   <FormLabel>CNPJ</FormLabel>
                   <FormControl>
-                    <Input placeholder="00.000.000.000-00" {...field} />
+                    <Input maxLength={18} placeholder="00.000.000.000-00" {...field} value={cnpjMask} onChange={handleChange} />
                   </FormControl>
 
                   <FormMessage />
