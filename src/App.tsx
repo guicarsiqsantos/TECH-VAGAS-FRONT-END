@@ -9,6 +9,8 @@ import CadastroEmpresa from "./pages/dashboard/empresas/cadastro";
 import PerfilEmpresa from "./pages/dashboard/empresas/cadastro/perfil";
 import Vagas from "./pages/dashboard/Vagas";
 import CadastroVagas from "./pages/dashboard/Vagas/cadastro";
+import InstituicaoEnsino from "./pages/dashboard/InstituicaoEnsino";
+import CadastroInstituicaoEnsino from "./pages/dashboard/InstituicaoEnsino/cadastro";
 
 function App() {
   return (
@@ -21,12 +23,20 @@ function App() {
         <Route path="/dashboard/empresas" element={<Empresas />} />
         <Route path="/dashboard/vagas" element={<Vagas />} />
         <Route
+          path="/dashboard/instituicaoEnsino"
+          element={<InstituicaoEnsino />}
+        />
+        <Route
           path="/dashboard/empresas/cadastro/:id?"
           element={<CadastroEmpresa />}
         />
         <Route
           path="/dashboard/vagas/cadastro/:id?"
           element={<CadastroVagas />}
+        />
+        <Route
+          path="/dashboard/instituicaoEnsino/cadastro/:id?"
+          element={<CadastroInstituicaoEnsino />}
         />
         <Route
           path="/dashboard/empresas/perfil/:id"

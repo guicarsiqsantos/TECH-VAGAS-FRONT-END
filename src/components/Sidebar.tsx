@@ -4,8 +4,8 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ApartmentIcon from "@mui/icons-material/Apartment";
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import LocationCityIcon from '@mui/icons-material/LocationCity';
+import AssignmentIcon from "@mui/icons-material/Assignment";
+import LocationCityIcon from "@mui/icons-material/LocationCity";
 
 export default function Sidebar() {
   return (
@@ -65,9 +65,11 @@ export default function Sidebar() {
               </Button>
             </NavLink>
 
-            <NavLink to="/dashboard/vagas">
+            <NavLink to="/dashboard/instituicaoEnsino">
               <Button variant="ghost" className="w-full justify-start mt-1">
-                <LocationCityIcon style={{ width: "15px", marginRight: "9px" }} />
+                <LocationCityIcon
+                  style={{ width: "15px", marginRight: "9px" }}
+                />
                 Instituição de Ensino
               </Button>
             </NavLink>
