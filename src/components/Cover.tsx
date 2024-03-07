@@ -1,6 +1,6 @@
 import { Button } from "./ui/button";
 import imgMemLaptop from "../assets/images/mem_laptop.png";
-import { Ghost, SearchIcon } from "lucide-react";
+import { SearchIcon } from "lucide-react";
 
 export default function Cover() {
   return (
@@ -22,22 +22,22 @@ export default function Cover() {
             </Button>
           </span>
         </div>
-        <div className=" flex w-[70%] mt-6">
+        <div className=" flex w-[70%] mt-7">
           <Button
             variant={"outline"}
-            className="bg-[] text-white text-lg font-normal rounded-sm mr-3"
+            className="bg-[] text-white text-lg font-normal rounded-sm mr-3 hover:text-[#3F3F3F]"
           >
             Vagas para Tecnologia
           </Button>
           <Button
             variant={"outline"}
-            className="bg-[] text-white text-lg font-normal rounded-sm  mr-3"
+            className="bg-[] text-white text-lg font-normal rounded-sm  mr-3 hover:text-[#3F3F3F]"
           >
             Vagas para Gestão Empresarial
           </Button>
           <Button
             variant={"outline"}
-            className="bg-[] text-white text-lg font-normal rounded-sm  mr-3"
+            className="bg-[] text-white text-lg font-normal rounded-sm  mr-3 hover:text-[#3F3F3F]"
           >
             Mais
           </Button>
