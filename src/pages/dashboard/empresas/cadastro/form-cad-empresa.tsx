@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -16,11 +15,12 @@ import { Button } from "@/components/ui/button";
 import api from "@/services/api";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { ConcendenteProps } from "../table/columns";
+import { cnpjApplyMask, numbersOnly } from "@/lib/utils";
 
 const formSchema = z.object({
   razaoSocial: z.string(),
   responsavelEstagio: z.string(),
-  cnpj: z.string().min(14, { message: "O CNPJ deve ter 14 digitos" }).max(14),
+  cnpj: z.string().min(18, { message: "O CNPJ deve ter 14 digitos" }),
   localidade: z
     .string()
     .min(2, { message: "Cidade deve ter no mínimo 2 caracteres." })
@@ -37,7 +37,7 @@ const FormCadastroEmpresa = ({ data }: { data: ConcendenteProps }) => {
     values: {
       razaoSocial: data.razaoSocial,
       responsavelEstagio: data.responsavelEstagio,
-      cnpj: data.cnpj,
+      cnpj: cnpjApplyMask(data.cnpj),
       localidade: data.localidade,
     },
     defaultValues: {
@@ -48,38 +48,28 @@ const FormCadastroEmpresa = ({ data }: { data: ConcendenteProps }) => {
     },
   });
 
-  const [cnpjMask, setCnpjMask] = useState('');
-
-  function formatCNPJ(cnpjMask:string) {
-    // Remove caracteres não numéricos do CNPJ
-    cnpjMask = cnpjMask.replace(/\D/g, '');
-
-    // Aplica a máscara
-    cnpjMask = cnpjMask.replace(/^(\d{2})(\d)/, '$1.$2');
-    cnpjMask = cnpjMask.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
-    cnpjMask = cnpjMask.replace(/\.(\d{3})(\d)/, '.$1/$2');
-    cnpjMask = cnpjMask.replace(/(\d{4})(\d)/, '$1-$2');
-
-    return cnpjMask;
-  }
-
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const inputCnpj = event.target.value;
-    const formattedCnpj = formatCNPJ(inputCnpj);
-    setCnpjMask(formattedCnpj);
+    const formattedCnpj = cnpjApplyMask(inputCnpj);
+    form.setValue("cnpj", formattedCnpj);
   }
 
   async function onSubmit(values: FormCadastroProps) {
-    isEdit
-      ? await api
-          .post("/concedente", values)
-          .finally(() => navigate("/dashboard/empresas"))
-      : await api
-          .put(`/concedente/${data.concedenteId}`, {
-            ...values,
-            concedenteId: data.concedenteId,
-          })
-          .finally(() => navigate("/dashboard/empresas"));
+    try {
+      isEdit
+        ? await api
+            .post("/concedente", { ...values, cnpj: numbersOnly(values.cnpj) })
+            .finally(() => navigate("/dashboard/empresas"))
+        : await api
+            .put(`/concedente/${data.concedenteId}`, {
+              ...values,
+              cnpj: numbersOnly(values.cnpj),
+              concedenteId: data.concedenteId,
+            })
+            .finally(() => navigate("/dashboard/empresas"));
+    } catch (error: any) {
+      console.log(error.message);
+    }
   }
   return (
     <Card className="p-4">
@@ -123,7 +113,11 @@ const FormCadastroEmpresa = ({ data }: { data: ConcendenteProps }) => {
                 <FormItem className="mt-5">
                   <FormLabel>CNPJ</FormLabel>
                   <FormControl>
-                    <Input maxLength={18} placeholder="00.000.000.000-00" {...field} value={cnpjMask} onChange={handleChange} />
+                    <Input
+                      placeholder="00.000.000.000-00"
+                      {...field}
+                      onChange={handleChange}
+                    />
                   </FormControl>
 
                   <FormMessage />

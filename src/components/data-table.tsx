@@ -77,13 +77,13 @@ export function DataTable<TData, TValue>({
         <div className="flex items-center py-4">
           <Input
             placeholder="Pesquisar..."
-            value={
-              (table.getColumn("razaoSocial")?.getFilterValue() as string) ?? ""
-            }
-            onChange={(event) =>
-              table.getColumn("razaoSocial")?.setFilterValue(event.target.value)
-            }
             className="max-w-sm"
+            // value={
+            //   (table.getColumn("razaoSocial")?.getFilterValue() as string) ?? ""
+            // }
+            // onChange={(event) =>
+            //   table.getColumn("razaoSocial")?.setFilterValue(event.target.value)
+            // }
           />
         </div>
         <DropdownMenu>

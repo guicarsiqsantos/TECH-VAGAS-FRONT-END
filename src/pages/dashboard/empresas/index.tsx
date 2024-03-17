@@ -5,6 +5,7 @@ import api from "@/services/api";
 import { Button } from "@/components/ui/button";
 import { PlusCircleIcon, PrinterIcon } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { cnpjApplyMask } from "@/lib/utils";
 
 export default function Empresas() {
   const [data, setData] = useState<ConcendenteProps[]>([]);
@@ -16,7 +17,7 @@ export default function Empresas() {
       ).data;
 
       const includeKeyData = data.map((item, idx) => {
-        return { ...item, key: idx };
+        return { ...item, cnpj: cnpjApplyMask(item.cnpj), key: idx };
       });
 
       setData(includeKeyData);

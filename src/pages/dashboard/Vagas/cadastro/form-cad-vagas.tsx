@@ -170,7 +170,7 @@ const FormCadastroVagas = ({ data }: { data: VagasProps }) => {
                 <FormItem className="mt-5">
                   <FormLabel>Data da publicação</FormLabel>
                   <FormControl>
-                    <Input placeholder="Data da publicação" {...field} />
+                    <Input placeholder="Data publicação" {...field} />
                   </FormControl>
 
                   <FormMessage />

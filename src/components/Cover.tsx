@@ -5,7 +5,7 @@ import { SearchIcon } from "lucide-react";
 export default function Cover() {
   return (
     <div className="flex justify-between bg-gradient-to-t from-[#73C1E3] to-[#008DC9]  h-[50vh]">
-      <div className="flex flex-col w-[52%] justify-center items-center ml-[10%] max-md:w-full max-md:ml-1">
+      <div className="flex flex-col w-[52%] justify-center items-center ml-[5%] max-md:w-full max-md:ml-1">
         <h1 className="w-[70%] mb-4 text-[40px] font-bold text-white">
           Encontre sua Vaga de estágio
         </h1>
@@ -43,7 +43,7 @@ export default function Cover() {
           </Button>
         </div>
       </div>
-      <div className="mr-[10%] max-md:hidden">
+      <div className="mr-[10%] max-xl:hidden">
         <img src={imgMemLaptop} alt="home" className="h-full" />
       </div>
     </div>
