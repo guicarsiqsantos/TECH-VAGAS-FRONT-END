@@ -124,7 +124,7 @@ const FormCadastroVagas = ({ data }: { data: VagasProps }) => {
               name="concedenteId"
               render={({ field }) => (
                 <FormItem className="mt-5 flex flex-col">
-                  <FormLabel>Codigo da Empresa</FormLabel>
+                  <FormLabel>Nome da Empresa</FormLabel>
                   <FormControl>
                     <Combobox
                       data={dataComboBox}

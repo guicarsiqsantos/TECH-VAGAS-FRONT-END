@@ -18,8 +18,16 @@ import { ConcendenteProps } from "../table/columns";
 import { cnpjApplyMask, numbersOnly } from "@/lib/utils";
 
 const formSchema = z.object({
-  razaoSocial: z.string(),
-  responsavelEstagio: z.string(),
+  razaoSocial: z
+    .string()
+    .min(2, { message: "Razão Social deve ter no mínino 2 caracteres" })
+    .max(50),
+  responsavelEstagio: z
+    .string()
+    .min(2, {
+      message: "Responsavel pelo Estágio deve ter no mínino 2 caracteres",
+    })
+    .max(50),
   cnpj: z.string().min(18, { message: "O CNPJ deve ter 14 digitos" }),
   localidade: z
     .string()

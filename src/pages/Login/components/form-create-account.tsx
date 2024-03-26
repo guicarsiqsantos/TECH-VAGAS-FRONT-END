@@ -128,10 +128,6 @@ export default function FormCreateAccount() {
               <Input id="current" type="password" />
             </div>
             <div className="space-y-1">
-              <Label htmlFor="current">Telefone</Label>
-              <Input id="current" type="password" />
-            </div>
-            <div className="space-y-1">
               <Label htmlFor="current">Senha</Label>
               <Input id="current" type="password" />
             </div>
@@ -141,7 +137,7 @@ export default function FormCreateAccount() {
             </div>
           </CardContent>
           <CardFooter>
-            <Button className="w-full">Criar</Button>
+            <Button className="w-full">Criar Conta</Button>
           </CardFooter>
         </Card>
       </TabsContent>
