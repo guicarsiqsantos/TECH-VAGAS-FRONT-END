@@ -88,7 +88,7 @@ const FormCadastroVagas = ({ data }: { data: VagasProps }) => {
         setValueComboBox(concedenteSelecionado.toString());
       }
 
-      const resp: ConcendenteProps[] = (await api.get("concedente")).data;
+      const resp: ConcendenteProps[] = (await api.get("/concedente")).data;
 
       setDataComboBox(
         resp.map((item) => {
@@ -102,18 +102,19 @@ const FormCadastroVagas = ({ data }: { data: VagasProps }) => {
   }, [data]);
 
   async function onSubmit(values: FormCadastroProps) {
-    const dataVagas = { ...values, concedenteId: Number(valueComboBox) };
+    // const dataVagas = { ...values, concedenteId: Number(valueComboBox) };
     isEdit
       ? await api
           .put(`/vagas/${data.vagasId}`, {
-            ...dataVagas,
+            ...values,
             vagasId: data.vagasId,
           })
           .finally(() => navigate("/dashboard/vagas"))
       : await api
-          .post("/vagas", dataVagas)
+          .post("/vagas", values)
           .finally(() => navigate("/dashboard/vagas"));
   }
+
   return (
     <Card className="p-4">
       <Form {...form}>
@@ -122,7 +123,7 @@ const FormCadastroVagas = ({ data }: { data: VagasProps }) => {
             <FormField
               control={form.control}
               name="concedenteId"
-              render={({ field }) => (
+              render={() => (
                 <FormItem className="mt-5 flex flex-col">
                   <FormLabel>Nome da Empresa</FormLabel>
                   <FormControl>
@@ -131,14 +132,6 @@ const FormCadastroVagas = ({ data }: { data: VagasProps }) => {
                       value={valueComboBox}
                       setValue={setValueComboBox}
                     />
-
-                    {/* <Input
-                      placeholder="Codigo da Empresa"
-                      {...field}
-                      onChange={(event) =>
-                        field.onChange(Number(event.target.value))
-                      }
-                    /> */}
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -151,11 +144,7 @@ const FormCadastroVagas = ({ data }: { data: VagasProps }) => {
                 <FormItem className="mt-5">
                   <FormLabel>Quantidade de Vagas</FormLabel>
                   <FormControl>
-                    <Input
-                      type="text"
-                      placeholder="Quantidade de Vagas"
-                      {...field}
-                    />
+                    <Input placeholder="Quantidade de Vagas" {...field} />
                   </FormControl>
 
                   <FormMessage />
@@ -170,7 +159,11 @@ const FormCadastroVagas = ({ data }: { data: VagasProps }) => {
                 <FormItem className="mt-5">
                   <FormLabel>Data da publicação</FormLabel>
                   <FormControl>
-                    <Input placeholder="Data publicação" {...field} />
+                    <Input
+                      type="date"
+                      placeholder="Data publicação"
+                      {...field}
+                    />
                   </FormControl>
 
                   <FormMessage />
@@ -185,7 +178,7 @@ const FormCadastroVagas = ({ data }: { data: VagasProps }) => {
                 <FormItem className="mt-5">
                   <FormLabel>Data limite</FormLabel>
                   <FormControl>
-                    <Input placeholder="Data limite" {...field} />
+                    <Input type="date" placeholder="Data limite" {...field} />
                   </FormControl>
 
                   <FormMessage />
