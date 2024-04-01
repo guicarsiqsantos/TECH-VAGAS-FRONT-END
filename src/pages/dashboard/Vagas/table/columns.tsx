@@ -59,6 +59,10 @@ export const columns: ColumnDef<VagasProps>[] = [
     header: "Data da Publicação",
   },
   {
+    accessorKey: "concedenteId",
+    header: "Empresa",
+  },
+  {
     accessorKey: "quantidade",
     header: ({ column }) => {
       return (
