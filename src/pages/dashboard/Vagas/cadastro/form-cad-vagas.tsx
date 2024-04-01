@@ -102,16 +102,16 @@ const FormCadastroVagas = ({ data }: { data: VagasProps }) => {
   }, [data]);
 
   async function onSubmit(values: FormCadastroProps) {
-    // const dataVagas = { ...values, concedenteId: Number(valueComboBox) };
+    const dataVagas = { ...values, concedenteId: Number(valueComboBox) };
     isEdit
       ? await api
           .put(`/vagas/${data.vagasId}`, {
-            ...values,
+            ...dataVagas,
             vagasId: data.vagasId,
           })
           .finally(() => navigate("/dashboard/vagas"))
       : await api
-          .post("/vagas", values)
+          .post("/vagas", dataVagas)
           .finally(() => navigate("/dashboard/vagas"));
   }
 
