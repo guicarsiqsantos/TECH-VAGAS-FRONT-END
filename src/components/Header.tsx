@@ -5,11 +5,17 @@ import Image from "../assets/images/logo_techvagas.png";
 export default function Header() {
   return (
     <div className="flex items-center justify-around shadow p-2">
-      <img src={Image} alt="logo" style={{ width: "140px", height: "60px" }} />
+      <NavLink to={"/"}>
+        <img
+          src={Image}
+          alt="logo"
+          style={{ width: "140px", height: "60px" }}
+        />
+      </NavLink>
 
       <div className="flex items-center gap-6">
         <Button asChild variant="ghost">
-          <NavLink to={"/"}>Buscar Vagas</NavLink>
+          <NavLink to={"/buscarVagas"}>Buscar Vagas</NavLink>
         </Button>
         <Button asChild variant="ghost">
           <NavLink to={"/"}>Para Empresa</NavLink>

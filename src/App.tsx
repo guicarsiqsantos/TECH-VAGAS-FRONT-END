@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/home";
-import Login from "./pages/login";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
 import Page404 from "./pages/404";
 import Dashboard from "./pages/dashboard";
 import LayoutDashboard from "./layout/LayoutDashboard";
@@ -11,11 +11,13 @@ import Vagas from "./pages/dashboard/Vagas";
 import CadastroVagas from "./pages/dashboard/Vagas/cadastro";
 import InstituicaoEnsino from "./pages/dashboard/InstituicaoEnsino";
 import CadastroInstituicaoEnsino from "./pages/dashboard/InstituicaoEnsino/cadastro";
+import BuscarVagas from "./pages/Home/BuscarVagas";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/buscarVagas" element={<BuscarVagas />} />
       <Route path="/login" element={<Login />} />
       <Route path="/*" element={<Page404 />} />
       <Route element={<LayoutDashboard />}>

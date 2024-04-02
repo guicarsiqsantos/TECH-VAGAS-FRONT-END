@@ -1,6 +1,6 @@
 import { Button } from "./ui/button";
 import imgMemLaptop from "../assets/images/mem_laptop.png";
-import { SearchIcon } from "lucide-react";
+import Search from "./Search";
 
 export default function Cover() {
   return (
@@ -9,19 +9,10 @@ export default function Cover() {
         <h1 className="w-[70%] mb-4 text-[40px] font-bold text-white">
           Encontre sua Vaga de estágio
         </h1>
-        <div className="relative flex justify-between w-[70%]">
-          <input
-            type="text"
-            placeholder="Digite uma Vaga ou cargo..."
-            className="text-base w-[100%] h-[60px] p-4 pr-32 outline-none rounded-lg"
-          />
-          <span className="absolute right-0">
-            <Button className="m-1 h-[53px] bg-green-500 hover:bg-green-600">
-              {" "}
-              <SearchIcon className="mr-1" /> Buscar
-            </Button>
-          </span>
-        </div>
+
+        {/* Campo de Pesquisar Vagas */}
+        <Search />
+
         <div className=" flex w-[70%] mt-7">
           <Button
             variant={"outline"}
