@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { phoneApplyMask, numbersOnly } from "@/lib/utils";
 import {
   Form,
   FormControl,
@@ -17,12 +18,13 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { InstituicaoEnsinoProps } from "../table/columns";
 
 const formSchema = z.object({
-  nomeInstituicao: z.string(),
-  local: z.string(),
-  telefone: z
+  nomeInstituicao: z.string().min(2, {
+    message: "Nome da Instituição de Ensino deve ter no mínimo 2 caracteres",
+  }),
+  local: z
     .string()
-    .min(9, { message: "O telefone deve ter 9 digitos" })
-    .max(14),
+    .min(2, { message: "Localização deve ter no mínimo 2 caracteres" }),
+  telefone: z.string().min(14, { message: "O telefone deve ter 9 digitos" }),
 });
 
 type FormCadastroProps = z.infer<typeof formSchema>;
@@ -39,7 +41,7 @@ const FormCadastroInstituicaoEnsino = ({
     values: {
       nomeInstituicao: data.nomeInstituicao,
       local: data.local,
-      telefone: data.telefone,
+      telefone: phoneApplyMask(data.telefone),
     },
     defaultValues: {
       nomeInstituicao: "",
@@ -48,17 +50,31 @@ const FormCadastroInstituicaoEnsino = ({
     },
   });
 
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const inputPhone = event.target.value;
+    const formattedPhone = phoneApplyMask(inputPhone);
+    form.setValue("telefone", formattedPhone);
+  }
+
   async function onSubmit(values: FormCadastroProps) {
-    isEdit
-      ? await api
-          .post("/InstituicaoEnsino", values)
-          .finally(() => navigate("/dashboard/InstituicaoEnsino"))
-      : await api
-          .put(`/InstituicaoEnsino/${data.Id}`, {
-            ...values,
-            Id: data.Id,
-          })
-          .finally(() => navigate("/dashboard/InstituicaoEnsino"));
+    try {
+      isEdit
+        ? await api
+            .post("/instituicaoEnsino", {
+              ...values,
+              telefone: numbersOnly(values.telefone),
+            })
+            .finally(() => navigate("/dashboard/InstituicaoEnsino"))
+        : await api
+            .put(`/InstituicaoEnsino/${data.Id}`, {
+              ...values,
+              Id: data.Id,
+            })
+            .finally(() => navigate("/dashboard/InstituicaoEnsino"));
+    } catch (error: any) {
+      console.log(error.message);
+    }
+    console.log(values);
   }
   return (
     <Card className="p-4">
@@ -74,7 +90,6 @@ const FormCadastroInstituicaoEnsino = ({
                   <FormControl>
                     <Input placeholder="Nome da Instituição" {...field} />
                   </FormControl>
-
                   <FormMessage />
                 </FormItem>
               )}
@@ -89,7 +104,6 @@ const FormCadastroInstituicaoEnsino = ({
                   <FormControl>
                     <Input placeholder="Localização" {...field} />
                   </FormControl>
-
                   <FormMessage />
                 </FormItem>
               )}
@@ -102,9 +116,13 @@ const FormCadastroInstituicaoEnsino = ({
                 <FormItem className="mt-5">
                   <FormLabel>Telefone</FormLabel>
                   <FormControl>
-                    <Input placeholder="Telefone" {...field} />
+                    <Input
+                      placeholder="Telefone"
+                      maxLength={14}
+                      {...field}
+                      onChange={handleChange}
+                    />
                   </FormControl>
-
                   <FormMessage />
                 </FormItem>
               )}
