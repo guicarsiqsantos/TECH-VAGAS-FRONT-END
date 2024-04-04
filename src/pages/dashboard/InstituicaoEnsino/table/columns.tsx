@@ -14,7 +14,7 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export type InstituicaoEnsinoProps = {
-  Id: number;
+  id: number;
   nomeInstituicao: string;
   local: string;
   telefone: string;
@@ -85,14 +85,14 @@ export const columns: ColumnDef<InstituicaoEnsinoProps>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <Link to={`/dashboard/instituicaoEnsino/cadastro/${dataRow.Id}`}>
+            <Link to={`/dashboard/instituicaoEnsino/cadastro/${dataRow.id}`}>
               <DropdownMenuItem>📝 Editar</DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={async () => {
                 meta?.removeRow(dataRow.key);
-                await api.delete(`/instituicaoEnsino/${dataRow.Id}`);
+                await api.delete(`/instituicaoEnsino/${dataRow.id}`);
               }}
             >
               🗑️ delete

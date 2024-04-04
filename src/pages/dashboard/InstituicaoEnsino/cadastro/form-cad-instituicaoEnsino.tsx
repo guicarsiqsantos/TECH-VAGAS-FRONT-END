@@ -60,15 +60,15 @@ const FormCadastroInstituicaoEnsino = ({
     try {
       isEdit
         ? await api
-            .post("/instituicaoEnsino", {
+            .post("/InstituicaoEnsino", {
               ...values,
               telefone: numbersOnly(values.telefone),
             })
             .finally(() => navigate("/dashboard/InstituicaoEnsino"))
         : await api
-            .put(`/InstituicaoEnsino/${data.Id}`, {
+            .put(`/InstituicaoEnsino/${data.id}`, {
               ...values,
-              Id: data.Id,
+              id: data.id,
             })
             .finally(() => navigate("/dashboard/InstituicaoEnsino"));
     } catch (error: any) {
