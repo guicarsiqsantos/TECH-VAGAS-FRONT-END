@@ -12,6 +12,7 @@ import api from "@/services/api";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 export type InstituicaoEnsinoProps = {
   id: number;
@@ -91,6 +92,7 @@ export const columns: ColumnDef<InstituicaoEnsinoProps>[] = [
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={async () => {
+                toast("Instituição de Ensino exluido com Sucesso. ✅");
                 meta?.removeRow(dataRow.key);
                 await api.delete(`/instituicaoEnsino/${dataRow.id}`);
               }}

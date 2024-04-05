@@ -12,6 +12,7 @@ import api from "@/services/api";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 export type VagasProps = {
   vagasId: number;
@@ -111,6 +112,7 @@ export const columns: ColumnDef<VagasProps>[] = [
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={async () => {
+                toast("Vaga Excluido com Sucesso. ✅");
                 meta?.removeRow(dataRow.key);
                 await api.delete(`/vagas/${dataRow.vagasId}`);
               }}

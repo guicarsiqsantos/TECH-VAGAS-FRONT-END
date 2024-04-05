@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
@@ -8,6 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { toast } from "sonner";
 import api from "@/services/api";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
@@ -96,6 +98,7 @@ export const columns: ColumnDef<ConcendenteProps>[] = [
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={async () => {
+                toast("Empresa Exluido com Sucesso. ✅");
                 meta?.removeRow(dataRow.key);
                 await api.delete(`/concedente/${dataRow.concedenteId}`);
               }}

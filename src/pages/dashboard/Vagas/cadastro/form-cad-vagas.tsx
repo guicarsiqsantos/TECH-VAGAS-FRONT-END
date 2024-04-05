@@ -19,6 +19,7 @@ import api from "@/services/api";
 import { useEffect, useState } from "react";
 import { ConcendenteProps } from "../../empresas/table/columns";
 import { Combobox, ComboboxProps } from "@/components/ComboBox";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   quantidade: z.string(),
@@ -103,16 +104,26 @@ const FormCadastroVagas = ({ data }: { data: VagasProps }) => {
 
   async function onSubmit(values: FormCadastroProps) {
     const dataVagas = { ...values, concedenteId: Number(valueComboBox) };
-    isEdit
-      ? await api
-          .put(`/vagas/${data.vagasId}`, {
-            ...dataVagas,
-            vagasId: data.vagasId,
-          })
-          .finally(() => navigate("/dashboard/vagas"))
-      : await api
-          .post("/vagas", dataVagas)
-          .finally(() => navigate("/dashboard/vagas"));
+    try {
+      isEdit
+        ? await api
+            .put(`/vagas/${data.vagasId}`, {
+              ...dataVagas,
+              vagasId: data.vagasId,
+            })
+            .finally(() => navigate("/dashboard/vagas"))
+        : await api
+            .post("/vagas", dataVagas)
+            .finally(() => navigate("/dashboard/vagas"));
+      isEdit
+        ? toast("Vaga Alterada com Sucesso. ✅")
+        : toast("Vaga Cadastrada com Sucesso. ✅");
+    } catch (error: any) {
+      isEdit
+        ? toast("Erro ao alterar a vaga. ❌")
+        : toast("Erro ao cadastrar a vaga. ❌");
+      console.log(error.message);
+    }
   }
 
   return (

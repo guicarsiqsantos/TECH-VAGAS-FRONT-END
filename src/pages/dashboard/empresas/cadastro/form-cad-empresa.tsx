@@ -10,6 +10,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import api from "@/services/api";
@@ -75,7 +76,13 @@ const FormCadastroEmpresa = ({ data }: { data: ConcendenteProps }) => {
               concedenteId: data.concedenteId,
             })
             .finally(() => navigate("/dashboard/empresas"));
+      isEdit
+        ? toast("Empresa Cadastrada com Sucesso. ✅")
+        : toast("Empresa Alterada com Sucesso. ✅");
     } catch (error: any) {
+      isEdit
+        ? toast("Erro ao cadastrar a vaga. ❌")
+        : toast("Erro ao alterar a vaga. ❌");
       console.log(error.message);
     }
   }

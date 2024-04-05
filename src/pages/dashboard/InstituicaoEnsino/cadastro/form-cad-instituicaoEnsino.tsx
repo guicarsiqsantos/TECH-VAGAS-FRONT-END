@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import api from "@/services/api";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { InstituicaoEnsinoProps } from "../table/columns";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   nomeInstituicao: z.string().min(2, {
@@ -71,7 +72,13 @@ const FormCadastroInstituicaoEnsino = ({
               id: data.id,
             })
             .finally(() => navigate("/dashboard/InstituicaoEnsino"));
+      isEdit
+        ? toast("Instituição de Ensino Cadastrada com Sucesso. ✅")
+        : toast("Instituição de Ensino Alterada com Sucesso. ✅");
     } catch (error: any) {
+      isEdit
+        ? toast("Erro ao cadastrar a instituição de Ensino. ❌")
+        : toast("Erro ao alterar a instituição de Ensino. ❌");
       console.log(error.message);
     }
     console.log(values);
