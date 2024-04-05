@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import imgLogoTechVaga from "../assets/images/logo_techvagas.png";
+import imgLogoTechVaga from "../assets/images/logo_white.png";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import DashboardIcon from "@mui/icons-material/Dashboard";
