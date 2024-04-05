@@ -120,8 +120,8 @@ const FormCadastroVagas = ({ data }: { data: VagasProps }) => {
         : toast("Vaga Cadastrada com Sucesso. ✅");
     } catch (error: any) {
       isEdit
-        ? toast("Erro ao alterar a vaga. ❌")
-        : toast("Erro ao cadastrar a vaga. ❌");
+        ? toast("OPS, algo deu errado ao alterar a vaga. ❌")
+        : toast("OPS, algo deu errado ao cadastrar a vaga. ❌");
       console.log(error.message);
     }
   }

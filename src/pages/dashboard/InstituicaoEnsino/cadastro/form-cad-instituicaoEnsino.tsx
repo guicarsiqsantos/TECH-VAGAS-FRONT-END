@@ -77,8 +77,8 @@ const FormCadastroInstituicaoEnsino = ({
         : toast("Instituição de Ensino Alterada com Sucesso. ✅");
     } catch (error: any) {
       isEdit
-        ? toast("Erro ao cadastrar a instituição de Ensino. ❌")
-        : toast("Erro ao alterar a instituição de Ensino. ❌");
+        ? toast("OPS, algo deu errado ao cadastrar a instituição de Ensino. ❌")
+        : toast("OPS, algo deu errado ao alterar a instituição de Ensino. ❌");
       console.log(error.message);
     }
     console.log(values);

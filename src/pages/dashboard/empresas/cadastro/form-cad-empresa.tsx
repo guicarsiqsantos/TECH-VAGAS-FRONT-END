@@ -81,8 +81,8 @@ const FormCadastroEmpresa = ({ data }: { data: ConcendenteProps }) => {
         : toast("Empresa Alterada com Sucesso. ✅");
     } catch (error: any) {
       isEdit
-        ? toast("Erro ao cadastrar a vaga. ❌")
-        : toast("Erro ao alterar a vaga. ❌");
+        ? toast("OPS, algo deu errado ao cadastrar a Empresa. ❌")
+        : toast("OPS, algo deu errado ao alterar a Empresa. ❌");
       console.log(error.message);
     }
   }
