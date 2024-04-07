@@ -63,7 +63,7 @@ const FormCadastroInstituicaoEnsino = ({
         ? await api
             .post("/InstituicaoEnsino", {
               ...values,
-              telefone: numbersOnly(values.telefone),
+              telefone: values.telefone,
             })
             .finally(() => navigate("/dashboard/InstituicaoEnsino"))
         : await api
@@ -81,7 +81,6 @@ const FormCadastroInstituicaoEnsino = ({
         : toast("OPS, algo deu errado ao alterar a instituição de Ensino. ❌");
       console.log(error.message);
     }
-    console.log(values);
   }
   return (
     <Card className="p-4">
