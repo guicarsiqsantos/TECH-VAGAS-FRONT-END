@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Search from "@/components/Search";
 import { SelectD } from "@/components/SelectItem";
+import Footer from "@/components/footer";
 import Vagas from "@/components/vagas";
 
 const BuscarVagas = () => {
@@ -23,6 +24,7 @@ const BuscarVagas = () => {
           <Vagas />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
