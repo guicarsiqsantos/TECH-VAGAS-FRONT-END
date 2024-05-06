@@ -19,9 +19,6 @@ const BuscarVagas = () => {
         <hr />
         <div className="mt-5">
           <Vagas />
-          <Vagas />
-          <Vagas />
-          <Vagas />
         </div>
       </div>
       <Footer />
