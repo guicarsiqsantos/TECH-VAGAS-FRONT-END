@@ -22,9 +22,13 @@ import { Combobox, ComboboxProps } from "@/components/ComboBox";
 import { toast } from "sonner";
 
 const formSchema = z.object({
-  quantidade: z.string(),
-  dataPublicacao: z.string(),
-  dataLimite: z.string(),
+  quantidade: z
+    .string()
+    .min(1, { message: "A quantidade e deve ter um caracteres." }),
+  dataPublicacao: z
+    .string()
+    .min(1, { message: "A data publicação e obrigatória." }),
+  dataLimite: z.string().min(1, { message: "A data Limite e obrigatória." }),
   localidade: z
     .string()
     .min(2, { message: "Cidade deve ter no mínimo 2 caracteres." })
@@ -33,11 +37,18 @@ const formSchema = z.object({
     .string()
     .max(200, { message: "Limite de 200 caracteres" })
     .optional(),
-  titulo: z.string(),
-  localidadeTrabalho: z.string(),
-  horarioEntrada: z.string(),
-  horarioSaida: z.string(),
-  totalHorasSemanis: z.string(),
+  titulo: z
+    .string()
+    .min(2, { message: "Titulo deve ter no mínimo 2 caracteres." }),
+  localidadeTrabalho: z
+    .string()
+    .min(2, { message: "Local do trabalho deve ter no mínimo 2 caracteres." }),
+  horarioEntrada: z.string().min(1, { message: "Horario é obrigatório." }),
+  horarioSaida: z.string().min(1, { message: "Horario é obrigatório." }),
+  totalHorasSemanis: z.string().min(3, {
+    message:
+      "Total de horas trabalhadas semanais deve ter no mínimo 1 caracteres.",
+  }),
   concedenteId: z.number(),
 });
 
