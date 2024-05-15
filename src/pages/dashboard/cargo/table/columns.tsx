@@ -80,7 +80,7 @@ export const columns: ColumnDef<CargoProps>[] = [
               onClick={async () => {
                 toast("Empresa Exluido com Sucesso. ✅");
                 meta?.removeRow(dataRow.key);
-                await api.delete(`/concedente/${dataRow.CargoId}`);
+                await api.delete(`/cargo/${dataRow.CargoId}`);
               }}
             >
               🗑️ delete
