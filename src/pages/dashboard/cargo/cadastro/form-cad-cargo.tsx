@@ -39,8 +39,8 @@ const FormCadastroCargo = ({ data }: { data: CargoProps }) => {
   const form = useForm<FormCadastroProps>({
     resolver: zodResolver(formSchema),
     values: {
-      Descricao: data.Descricao,
-      Tipo: data.Tipo,
+      Descricao: data.descricao,
+      Tipo: data.tipo,
     },
     defaultValues: {
         Descricao: "",
@@ -52,12 +52,12 @@ const FormCadastroCargo = ({ data }: { data: CargoProps }) => {
     try {
       isEdit
         ? await api
-            .post("/cargo", { ...values})
+            .post("/Cargo", { ...values})
             .finally(() => navigate("/dashboard/cargo"))
         : await api
-            .put(`/concedente/${data.CargoId}`, {
+            .put(`/Cargo/${data.cargoId}`, {
               ...values,
-              CargoId: data.CargoId,
+              CargoId: data.cargoId,
             })
             .finally(() => navigate("/dashboard/cargo"));
       isEdit
