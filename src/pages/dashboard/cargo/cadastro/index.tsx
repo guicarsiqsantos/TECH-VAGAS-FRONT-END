@@ -13,7 +13,7 @@ export default function CadastroCargo() {
   useEffect(() => {
     (async () => {
       if (id) {
-        const data = (await api.get(`/cargo/${id}`)).data;
+        const data = (await api.get(`/Cargo/${id}`)).data;
         setCargo(data);
       }
       return;

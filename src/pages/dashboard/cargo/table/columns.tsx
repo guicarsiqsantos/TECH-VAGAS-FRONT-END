@@ -16,9 +16,9 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export type CargoProps = {
-    CargoId: number;
-    Descricao: string;
-    Tipo: string;
+  cargoId: number;
+  descricao: string;
+  tipo: string;
     key: number; 
 };
 
@@ -48,11 +48,11 @@ export const columns: ColumnDef<CargoProps>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "Descricao",
+    accessorKey: "descricao",
     header: "Descrição",
   },
   {
-    accessorKey: "Tipo",
+    accessorKey: "tipo",
     header: "Tipo",
   },
   {
@@ -72,7 +72,7 @@ export const columns: ColumnDef<CargoProps>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <Link to={`/dashboard/cargo/cadastro/${dataRow.CargoId}`}>
+            <Link to={`/dashboard/cargo/cadastro/${dataRow.cargoId}`}>
               <DropdownMenuItem>📝 Editar</DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />
@@ -80,7 +80,7 @@ export const columns: ColumnDef<CargoProps>[] = [
               onClick={async () => {
                 toast("Empresa Exluido com Sucesso. ✅");
                 meta?.removeRow(dataRow.key);
-                await api.delete(`/cargo/${dataRow.CargoId}`);
+                await api.delete(`/cargo/${dataRow.cargoId}`);
               }}
             >
               🗑️ delete
