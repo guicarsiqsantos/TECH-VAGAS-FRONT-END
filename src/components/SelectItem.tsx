@@ -11,7 +11,7 @@ export function SelectD() {
   return (
     <Select>
       <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Select a fruit" />
+        <SelectValue placeholder="Selecione..." />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
