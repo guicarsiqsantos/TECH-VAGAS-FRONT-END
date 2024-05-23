@@ -12,6 +12,8 @@ import CadastroVagas from "./pages/dashboard/Vagas/cadastro";
 import InstituicaoEnsino from "./pages/dashboard/InstituicaoEnsino";
 import CadastroInstituicaoEnsino from "./pages/dashboard/InstituicaoEnsino/cadastro";
 import BuscarVagas from "./pages/Home/BuscarVagas";
+import Cargos from "./pages/dashboard/cargo";
+import CadastroCargo from "./pages/dashboard/cargo/cadastro";
 
 function App() {
   return (
@@ -29,8 +31,16 @@ function App() {
           element={<InstituicaoEnsino />}
         />
         <Route
+          path="/dashboard/cargo"
+          element={<Cargos />}
+        />
+        <Route
           path="/dashboard/empresas/cadastro/:id?"
           element={<CadastroEmpresa />}
+        />
+        <Route
+          path="/dashboard/cargo/cadastro/:id?"
+          element={<CadastroCargo />}
         />
         <Route
           path="/dashboard/vagas/cadastro/:id?"

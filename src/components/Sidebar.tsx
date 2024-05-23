@@ -75,6 +75,14 @@ export default function Sidebar() {
                 Instituição de Ensino
               </Button>
             </NavLink>
+            <NavLink to="/dashboard/cargo">
+              <Button variant="ghost" className="w-full justify-start mt-1">
+                <LocationCityIcon
+                  style={{ width: "15px", marginRight: "9px" }}
+                />
+                Cargo
+              </Button>
+            </NavLink>
           </div>
         </div>
       </div>
