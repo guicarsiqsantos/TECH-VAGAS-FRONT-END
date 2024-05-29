@@ -131,7 +131,7 @@ export const columns: ColumnDef<ConcendenteProps>[] = [
                     Cancel
                   </AlertDialogCancel>
                   <AlertDialogAction
-                    className="w-full"
+                    className="w-full bg-destructive text-destructive-foreground hover:bg-destructive/90"
                     onClick={async () => {
                       toast("Empresa Exluido com Sucesso. ✅");
                       meta?.removeRow(dataRow.key);
