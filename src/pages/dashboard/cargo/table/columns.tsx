@@ -12,14 +12,25 @@ import {
 import { toast } from "sonner";
 import api from "@/services/api";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export type CargoProps = {
   cargoId: number;
   descricao: string;
   tipo: string;
-    key: number; 
+  key: number;
 };
 
 export const columns: ColumnDef<CargoProps>[] = [
@@ -76,15 +87,42 @@ export const columns: ColumnDef<CargoProps>[] = [
               <DropdownMenuItem>📝 Editar</DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={async () => {
-                toast("Empresa Exluido com Sucesso. ✅");
-                meta?.removeRow(dataRow.key);
-                await api.delete(`/cargo/${dataRow.cargoId}`);
-              }}
-            >
-              🗑️ delete
-            </DropdownMenuItem>
+
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start font-normal p-2"
+                >
+                  🗑️ delete
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent className="w-[90%]">
+                <AlertDialogHeader>
+                  <AlertDialogTitle>
+                    {`Deseja mesmo excluir o cargo ${dataRow.tipo}?`}
+                  </AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Uma vez cancelada, não será possosível reverter esa ação
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel className="w-full">
+                    Cancel
+                  </AlertDialogCancel>
+                  <AlertDialogAction
+                    className="w-full bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                    onClick={async () => {
+                      toast("Empresa Exluido com Sucesso. ✅");
+                      meta?.removeRow(dataRow.key);
+                      await api.delete(`/cargo/${dataRow.cargoId}`);
+                    }}
+                  >
+                    Confirmar
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </DropdownMenuContent>
         </DropdownMenu>
       );
