@@ -4,6 +4,7 @@ import ApartmentIcon from "@mui/icons-material/Apartment";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { VagasProps } from "@/pages/dashboard/Vagas/table/columns";
+import { Card } from "./ui/card";
 
 const Vagas = () => {
   const [data, setData] = useState<VagasProps[]>([]);
@@ -45,7 +46,7 @@ const Vagas = () => {
         </div>
       ) : (
         data.map((vaga) => (
-          <div key={vaga.vagasId} className="flex mb-16">
+          <Card key={vaga.vagasId} className="flex mb-6 p-6 shadow-md">
             <div className="mr-4">
               <ApartmentIcon />
             </div>
@@ -64,7 +65,7 @@ const Vagas = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </Card>
         ))
       )}
     </div>

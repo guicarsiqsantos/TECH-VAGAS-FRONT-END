@@ -25,14 +25,14 @@ const BuscarVagas = () => {
   }, []);
 
   return (
-    <div className="">
+    <div>
       <Header />
       <div className="flex justify-center py-8 bg-gradient-to-tr from-[#73C1E3] to-[#008DC9]">
         <Search />
       </div>
       <div className="px-[15%]">
         <div className="flex justify-between items-center mt-7 mb-4">
-          <p className="font-normal text-xl">{`${totalVagas} vagas de estágio disponíveis`}</p>
+          <p className="text-xl">{`${totalVagas} vagas de estágio disponíveis`}</p>
           <SelectD />
         </div>
         <hr />

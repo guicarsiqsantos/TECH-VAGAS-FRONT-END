@@ -1,3 +1,14 @@
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -110,15 +121,41 @@ export const columns: ColumnDef<VagasProps>[] = [
               <DropdownMenuItem>📝 Editar</DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={async () => {
-                toast("Vaga Excluido com Sucesso. ✅");
-                meta?.removeRow(dataRow.key);
-                await api.delete(`/vagas/${dataRow.vagasId}`);
-              }}
-            >
-              🗑️ delete
-            </DropdownMenuItem>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start font-normal p-2"
+                >
+                  🗑️ delete
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent className="w-[90%]">
+                <AlertDialogHeader>
+                  <AlertDialogTitle>
+                    {`Deseja mesmo excluir esta vaga?`}
+                  </AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Uma vez cancelada, não será possosível reverter esa ação
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel className="w-full">
+                    Cancel
+                  </AlertDialogCancel>
+                  <AlertDialogAction
+                    className="w-full bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                    onClick={async () => {
+                      toast("Vaga Excluido com Sucesso. ✅");
+                      meta?.removeRow(dataRow.key);
+                      await api.delete(`/vagas/${dataRow.vagasId}`);
+                    }}
+                  >
+                    Confirmar
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </DropdownMenuContent>
         </DropdownMenu>
       );

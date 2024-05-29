@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -98,12 +98,14 @@ export default function FormCreateAccount() {
               </div>
             </CardContent>
             <CardFooter className="flex flex-col gap-5">
-              <Button disabled={isLoading} className="w-full">
-                {isLoading && (
+              <Link to={"/dashboard"}>
+                <Button disabled={isLoading} className="w-full">
+                  {/* {isLoading && (
                   <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-                )}
-                Entrar
-              </Button>
+                )} */}
+                  Entrar
+                </Button>
+              </Link>
               {message && <Badge variant="outline">⛔ {message}</Badge>}
             </CardFooter>
           </Card>

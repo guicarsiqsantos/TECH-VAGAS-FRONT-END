@@ -14,6 +14,17 @@ import api from "@/services/api";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export type MatriculaProps = {
   MatriculaId: number;
@@ -85,15 +96,42 @@ export const columns: ColumnDef<MatriculaProps>[] = [
               <DropdownMenuItem>📝 Editar</DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={async () => {
-                toast("Matricula Exluida com Sucesso. ✅");
-                meta?.removeRow(dataRow.key);
-                await api.delete(`/matricula/${dataRow.MatriculaId}`);
-              }}
-            >
-              🗑️ delete
-            </DropdownMenuItem>
+
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start font-normal p-2"
+                >
+                  🗑️ delete
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent className="w-[90%]">
+                <AlertDialogHeader>
+                  <AlertDialogTitle>
+                    {`Deseja mesmo excluir o cargo ${dataRow.NumeroMatricula}?`}
+                  </AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Uma vez cancelada, não será possosível reverter esa ação
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel className="w-full">
+                    Cancel
+                  </AlertDialogCancel>
+                  <AlertDialogAction
+                    className="w-full bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                    onClick={async () => {
+                      toast("Matricula Exluida com Sucesso. ✅");
+                      meta?.removeRow(dataRow.key);
+                      await api.delete(`/matricula/${dataRow.MatriculaId}`);
+                    }}
+                  >
+                    Confirmar
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </DropdownMenuContent>
         </DropdownMenu>
       );
