@@ -142,23 +142,46 @@ const FormCadastroVagas = ({ data }: { data: VagasProps }) => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <CardContent className="grid grid-cols-2 gap-x-7">
-            <FormField
-              control={form.control}
-              name="concedenteId"
-              render={() => (
-                <FormItem className="mt-5 flex flex-col">
-                  <FormLabel>Nome da Empresa</FormLabel>
-                  <FormControl>
-                    <Combobox
-                      data={dataComboBox}
-                      value={valueComboBox}
-                      setValue={setValueComboBox}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid grid-cols-2 gap-x-7 mt-[10px]">
+              <FormField
+                control={form.control}
+                name="concedenteId"
+                render={() => (
+                  <FormItem className="mt-5 flex flex-col">
+                    <FormLabel>Nome da Empresa</FormLabel>
+                    <FormControl>
+                      <Combobox
+                        data={dataComboBox}
+                        title="empresa"
+                        isSeach={false}
+                        value={valueComboBox}
+                        setValue={setValueComboBox}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="concedenteId"
+                render={() => (
+                  <FormItem className="mt-5 flex flex-col">
+                    <FormLabel>Nome do Cargo</FormLabel>
+                    <FormControl>
+                      <Combobox
+                        data={dataComboBox}
+                        title="Cargo"
+                        isSeach={false}
+                        value={valueComboBox}
+                        setValue={setValueComboBox}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
             <FormField
               control={form.control}
               name="quantidade"

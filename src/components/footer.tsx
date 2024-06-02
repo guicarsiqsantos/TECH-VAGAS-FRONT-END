@@ -8,7 +8,7 @@ import AttachEmailIcon from "@mui/icons-material/AttachEmail";
 
 const Footer = () => {
   return (
-    <div className=" flex flex-col w-full justify-between  pt-10 h-[340px] bg-[#1470C4] bottom-0">
+    <div className=" flex flex-col w-full justify-between pt-10 h-[340px] bg-[#1470C4] bottom-0">
       <div className="flex gap-20 px-[15%]">
         <div className="flex flex-col">
           <img src={imglogo} alt="" width="150px" height="150px" />
