@@ -5,6 +5,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { VagasProps } from "@/pages/dashboard/Vagas/table/columns";
 import { Card } from "./ui/card";
+import { Loader2Icon } from "lucide-react";
 
 const Vagas = () => {
   const [data, setData] = useState<VagasProps[]>([]);
@@ -37,12 +38,13 @@ const Vagas = () => {
   return (
     <div>
       {isLoading ? (
-        <div className="flex h-40 justify-center items-center">
-          <p className="text-2xl">loading ...</p>
+        <div className="flex gap2 h-40 justify-center items-center">
+          <Loader2Icon className="animate-spin" />
+          <p className="text-2xl">Carregando</p>
         </div>
       ) : data.length === 0 ? (
         <div className="flex h-40 justify-center items-center">
-          <p className="text-2xl">Nanhuma vaga encontrada</p>
+          <p className="text-2xl">Nenhuma vaga encontrada</p>
         </div>
       ) : (
         data.map((vaga) => (

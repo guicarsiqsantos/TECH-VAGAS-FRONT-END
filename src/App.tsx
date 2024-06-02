@@ -22,6 +22,7 @@ function App() {
       <Route path="/buscarVagas" element={<BuscarVagas />} />
       <Route path="/login" element={<Login />} />
       <Route path="/*" element={<Page404 />} />
+
       <Route element={<LayoutDashboard />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/empresas" element={<Empresas />} />
@@ -30,10 +31,7 @@ function App() {
           path="/dashboard/instituicaoEnsino"
           element={<InstituicaoEnsino />}
         />
-        <Route
-          path="/dashboard/cargo"
-          element={<Cargos />}
-        />
+        <Route path="/dashboard/cargo" element={<Cargos />} />
         <Route
           path="/dashboard/empresas/cadastro/:id?"
           element={<CadastroEmpresa />}

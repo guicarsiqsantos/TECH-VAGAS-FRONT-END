@@ -25,7 +25,7 @@ import {
 
 export default function Sidebar() {
   return (
-    <div className={cn("pb-12 w-[250px] shadow bg-[#1a1a1a]")}>
+    <div className={cn("fixed h-full pb-12 w-[250px] shadow bg-[#1a1a1a]")}>
       <div className="flex-1 space-y-4 py-4">
         <div className="px-3 py-2 ">
           <NavLink to="/">
@@ -102,6 +102,7 @@ export default function Sidebar() {
           </div>
         </div>
       </div>
+
       <div className="flex items-center justify-between absolute bottom-0 w-[250px]  border-t border-solid px-3 py-2">
         <div className="flex gap-2 items-center ">
           <Avatar className="h-9 w-9">
@@ -157,7 +158,9 @@ export default function Sidebar() {
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />
               <Link to={"/"}>
-                <DropdownMenuItem>Log out</DropdownMenuItem>
+                <DropdownMenuItem className="font-semibold">
+                  Log out
+                </DropdownMenuItem>
               </Link>
             </DropdownMenuContent>
           </DropdownMenu>

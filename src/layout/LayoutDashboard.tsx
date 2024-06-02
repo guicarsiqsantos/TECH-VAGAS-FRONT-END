@@ -7,7 +7,7 @@ export default function LayoutDashboard() {
   return (
     <div className="flex min-h-screen">
       <Sidebar />
-      <div className="flex-1 p-4">
+      <div className="flex-1 p-4 ml-[250px]">
         <div className="flex items-center gap-3 mb-4 border-b pb-4">
           <NavLink to="/dashboard">
             <HomeIcon />

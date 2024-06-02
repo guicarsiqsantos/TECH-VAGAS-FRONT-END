@@ -21,15 +21,21 @@ export type ComboboxProps = {
   label: string;
 };
 
+type Props = {
+  data: ComboboxProps[];
+  value: string;
+  isSeach?: boolean;
+  title?: string;
+  setValue: Function;
+};
+
 export function Combobox({
   data,
   value,
   setValue,
-}: {
-  data: ComboboxProps[];
-  value: string;
-  setValue: Function;
-}) {
+  isSeach = true,
+  title = "...",
+}: Props) {
   const [open, setOpen] = React.useState(false);
 
   if (data.length <= 0) return;
@@ -41,17 +47,17 @@ export function Combobox({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="w-full justify-between"
         >
           {value
             ? data.find((empresa) => empresa.value === value)?.label
-            : "Selecione a emrpesa..."}
+            : `Selecione a ${title}`}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-full p-0">
         <Command>
-          <CommandInput placeholder="Pesquisar empresa..." />
+          {isSeach && <CommandInput placeholder={`Pesquisar ${title}`} />}
           <CommandEmpty>Ops! Não localizado</CommandEmpty>
           <CommandGroup>
             {data.map((empresa) => (
