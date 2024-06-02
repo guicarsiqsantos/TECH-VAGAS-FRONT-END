@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/ui/icons";
 import { Badge } from "@/components/ui/badge";
 import api from "@/services/api";
+import Grid from "@mui/material/Grid";
 
 export default function FormCreateAccount() {
   const navigate = useNavigate();
@@ -38,8 +39,12 @@ export default function FormCreateAccount() {
     setIsLoading(true);
     try {
       await api
-        .post("/login", { email: credencial.email, senha: credencial.password })
-        .then(() => {
+        .post("/Sessao/Autentication", {
+          email: credencial.email,
+          senha: credencial.password,
+        })
+        .then((resp) => {
+          console.log(resp.data);
           navigate("/dashboard");
         })
         .finally(() => setIsLoading(false));
@@ -49,7 +54,7 @@ export default function FormCreateAccount() {
   }
 
   return (
-    <Tabs defaultValue="authLogin" className="w-[400px]">
+    <Tabs defaultValue="authLogin" className="w-[600px]">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="authLogin">Login</TabsTrigger>
         <TabsTrigger value="account">Criar conta</TabsTrigger>
@@ -97,20 +102,21 @@ export default function FormCreateAccount() {
                 />
               </div>
             </CardContent>
-            <CardFooter className="flex flex-col gap-5">
-              <Link to={"/dashboard"}>
-                <Button disabled={isLoading} className="w-full">
-                  {/* {isLoading && (
+            <CardFooter>
+              {/* <Link to={"/dashboard"}> */}
+              <Button disabled={isLoading} type="submit" className="w-full">
+                {isLoading && (
                   <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-                )} */}
-                  Entrar
-                </Button>
-              </Link>
+                )}
+                Entrar
+              </Button>
+              {/* </Link> */}
               {message && <Badge variant="outline">⛔ {message}</Badge>}
             </CardFooter>
           </Card>
         </form>
       </TabsContent>
+
       <TabsContent value="account">
         <Card className="border-none">
           <CardHeader>
@@ -120,23 +126,42 @@ export default function FormCreateAccount() {
               extraordinário! A tech Vagas, conectando sonhos a Oportunidades.
             </CardDescription>
           </CardHeader>
+
           <CardContent className="space-y-2">
             <div className="space-y-1">
               <Label htmlFor="current">Nome</Label>
-              <Input id="current" type="password" />
+              <Input id="current" type="text" />
             </div>
-            <div className="space-y-1">
-              <Label htmlFor="current">E-mail</Label>
-              <Input id="current" type="password" />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="current">Senha</Label>
-              <Input id="current" type="password" />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="new">Confirmar senha</Label>
-              <Input id="new" type="password" />
-            </div>
+
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6}>
+                <div className="space-y-1">
+                  <Label htmlFor="current">E-mail</Label>
+                  <Input id="current" type="text" placeholder="@exemple.com" />
+                </div>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <div className="space-y-1">
+                  <Label htmlFor="current">CPF</Label>
+                  <Input id="current" type="text" />
+                </div>
+              </Grid>
+            </Grid>
+
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6}>
+                <div className="space-y-1">
+                  <Label htmlFor="new">Confirmar senha</Label>
+                  <Input id="new" type="password" />
+                </div>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <div className="space-y-1">
+                  <Label htmlFor="current">Senha</Label>
+                  <Input id="current" type="password" />
+                </div>
+              </Grid>
+            </Grid>
           </CardContent>
           <CardFooter>
             <Button className="w-full">Criar Conta</Button>
