@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 export default function Dashboard() {
   const [totalEmpresas, setTotalEmpresas] = useState(0);
   const [totalVagas, setTotalVagas] = useState(0);
-  const [totalAlunos, setTotalAlunos] = useState(0);
+  const [totalUsuarios, setTotalUsuarios] = useState(0);
 
   useEffect(() => {
     // Função para buscar a quantidade total de Empresa disponíveis
@@ -30,12 +30,12 @@ export default function Dashboard() {
 
     fetchTotalEmpresa();
 
-    // Função para buscar a quantidade total de Aluno disponíveis
-    const fetchTotalAluno = async () => {
+    // Função para buscar a quantidade total de Usuarios disponíveis
+    const fetchTotalUsuarios = async () => {
       try {
-        const response = await api.get("/aluno");
-        const totalAlunos = response.data.length;
-        setTotalAlunos(totalAlunos);
+        const response = await api.get("/Usuario");
+        const totalUsuarios = response.data.length;
+        setTotalUsuarios(totalUsuarios);
       } catch (error) {
         console.error("Error fetching total number of vacancies:", error);
       }
@@ -53,7 +53,7 @@ export default function Dashboard() {
 
     fetchTotalVagas();
 
-    fetchTotalAluno();
+    fetchTotalUsuarios();
   }, []);
 
   return (
@@ -77,14 +77,14 @@ export default function Dashboard() {
           <CardHeader>
             <div className="flex justify-between">
               <div>
-                <CardTitle>Alunos</CardTitle>
-                <CardDescription>Alunos Cadastradas</CardDescription>
+                <CardTitle>Usuários</CardTitle>
+                <CardDescription>Usuários Cadastradas</CardDescription>
               </div>
               <ApartmentIcon />
             </div>
           </CardHeader>
           <CardContent>
-            <span className="text-lg">{totalAlunos}</span>
+            <span className="text-lg">{totalUsuarios}</span>
           </CardContent>
         </Card>
         <Card className="w-[50%] h-36">

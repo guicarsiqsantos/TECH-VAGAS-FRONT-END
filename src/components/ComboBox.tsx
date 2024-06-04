@@ -50,7 +50,7 @@ export function Combobox({
           className="w-full justify-between"
         >
           {value
-            ? data.find((empresa) => empresa.value === value)?.label
+            ? data.find((item) => item.value === value)?.label
             : `Selecione a ${title}`}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -60,22 +60,22 @@ export function Combobox({
           {isSeach && <CommandInput placeholder={`Pesquisar ${title}`} />}
           <CommandEmpty>Ops! Não localizado</CommandEmpty>
           <CommandGroup>
-            {data.map((empresa) => (
+            {data.map((item) => (
               <CommandItem
-                key={empresa.value}
-                value={empresa.value}
+                key={item.value}
+                value={item.value}
                 onSelect={() => {
-                  setValue(empresa.value);
+                  setValue(item.value);
                   setOpen(false);
                 }}
               >
                 <Check
                   className={cn(
                     "mr-2 h-4 w-4",
-                    value === empresa.value ? "opacity-100" : "opacity-0"
+                    value === item.value ? "opacity-100" : "opacity-0"
                   )}
                 />
-                {empresa.label}
+                {item.label}
               </CommandItem>
             ))}
           </CommandGroup>
