@@ -68,20 +68,34 @@ const FormCadastroVagas = ({ data }: { data: VagasProps }) => {
 
   const form = useForm<FormCadastroProps>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      quantidade: data?.quantidade || "",
-      dataPublicacao: data?.dataPublicacao || "",
-      dataLimite: data?.dataLimite || "",
-      localidade: data?.localidade || "",
-      descricao: data?.descricao || "",
-      titulo: data?.titulo || "",
-      localidadeTrabalho: data?.localidadeTrabalho || "",
-      horarioEntrada: data?.horarioEntrada || "",
-      horarioSaida: data?.horarioSaida || "",
-      totalHorasSemanis: data?.totalHorasSemanis || "",
-      concedenteId: data?.concedenteId || 0,
-      cargoId: data?.cargoId || 0,
+    values: {
+      quantidade: data?.quantidade,
+      dataPublicacao: data?.dataPublicacao,
+      dataLimite: data?.dataLimite,
+      localidade: data?.localidade,
+      descricao: data?.descricao,
+      titulo: data?.titulo,
+      localidadeTrabalho: data?.localidadeTrabalho,
+      horarioEntrada: data?.horarioEntrada,
+      horarioSaida: data?.horarioSaida,
+      totalHorasSemanis: data?.totalHorasSemanis,
+      concedenteId: data?.concedenteId,
+      cargoId: data?.cargoId,
     },
+    defaultValues: {
+      quantidade: "",
+      dataPublicacao: "",
+      dataLimite: "",
+      localidade: "",
+      descricao: "",
+      titulo: "",
+      localidadeTrabalho: "",
+      horarioEntrada: "",
+      horarioSaida: "",
+      totalHorasSemanis: "",
+      concedenteId: 0,
+      cargoId: 0,
+    }
   });
 
   useEffect(() => {
