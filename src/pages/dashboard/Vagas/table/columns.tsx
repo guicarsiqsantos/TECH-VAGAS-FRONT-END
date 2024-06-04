@@ -38,6 +38,7 @@ export type VagasProps = {
   horarioSaida: string;
   totalHorasSemanis: string;
   concedenteId: number;
+  cargoId: number;
   key: number;
 };
 

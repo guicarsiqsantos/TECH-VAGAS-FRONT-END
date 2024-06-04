@@ -27,7 +27,6 @@ export default function FormCreateAccount() {
     password: "",
   });
   const [account, setAccount] = useState({
-    usuarioId: 0,
     nome: "",
     cpfCnpj: "",
     email: "",
@@ -81,12 +80,11 @@ export default function FormCreateAccount() {
     try {
       await api
         .post("/Usuario", {
-          usuarioId: account.usuarioId,
           nome: account.nome,
           cpfCnpj: account.cpfCnpj,
           email: account.email,
           senha: account.senha,
-          userTypeDto: account.userTypeDto,
+          userType: account.userTypeDto,
         })
         .then((resp) => {
           console.log(resp.data);
