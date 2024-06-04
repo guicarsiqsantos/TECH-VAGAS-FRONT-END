@@ -38,6 +38,7 @@ export type VagasProps = {
   horarioSaida: string;
   totalHorasSemanis: string;
   concedenteId: number;
+  razaoSocial: string;
   cargoId: number;
   key: number;
 };
@@ -72,7 +73,7 @@ export const columns: ColumnDef<VagasProps>[] = [
     header: "Data da Publicação",
   },
   {
-    accessorKey: "concedenteId",
+    accessorKey: "razaoSocial",
     header: "Empresa",
   },
   {
