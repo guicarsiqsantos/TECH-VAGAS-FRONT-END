@@ -24,6 +24,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
+import { format } from "date-fns";
 
 export type VagasProps = {
   vagasId: number;
@@ -71,6 +72,10 @@ export const columns: ColumnDef<VagasProps>[] = [
   {
     accessorKey: "dataPublicacao",
     header: "Data da Publicação",
+    cell: ({ row }) => {
+      const date = new Date(row.original.dataPublicacao);
+      return format(date, "dd/MM/yyyy");
+    },
   },
   {
     accessorKey: "razaoSocial",
@@ -93,6 +98,10 @@ export const columns: ColumnDef<VagasProps>[] = [
   {
     accessorKey: "dataLimite",
     header: "Data limite",
+    cell: ({ row }) => {
+      const date = new Date(row.original.dataLimite);
+      return format(date, "dd/MM/yyyy");
+    },
   },
   {
     accessorKey: "localidade",
