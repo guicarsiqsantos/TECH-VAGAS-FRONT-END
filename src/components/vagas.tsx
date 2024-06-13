@@ -6,7 +6,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { VagasProps } from "@/pages/dashboard/Vagas/table/columns";
 import { Card } from "./ui/card";
 import { Loader2Icon } from "lucide-react";
-import { format, Locale } from "date-fns"; // Importa o locale em português do Brasil, se necessário
+import { format } from "date-fns"; // Importa o locale em português do Brasil, se necessário
 
 const Vagas = () => {
   const [data, setData] = useState<VagasProps[]>([]);
