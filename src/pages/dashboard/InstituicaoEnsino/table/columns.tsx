@@ -26,10 +26,10 @@ import {
 } from "@/components/ui/alert-dialog";
 
 export type InstituicaoEnsinoProps = {
-  id: number;
+  idInstituicaoEnsino: number;
   nomeInstituicao: string;
-  local: string;
-  telefone: string;
+  localInstituicao: string;
+  telefoneInstituicao: string;
   key: number;
 };
 
@@ -73,11 +73,11 @@ export const columns: ColumnDef<InstituicaoEnsinoProps>[] = [
     },
   },
   {
-    accessorKey: "local",
+    accessorKey: "localInstituicao",
     header: "Localização",
   },
   {
-    accessorKey: "telefone",
+    accessorKey: "telefoneInstituicao",
     header: "Telefone",
   },
   {
@@ -97,7 +97,9 @@ export const columns: ColumnDef<InstituicaoEnsinoProps>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <Link to={`/dashboard/instituicaoEnsino/cadastro/${dataRow.id}`}>
+            <Link
+              to={`/dashboard/instituicaoEnsino/cadastro/${dataRow.idInstituicaoEnsino}`}
+            >
               <DropdownMenuItem>📝 Editar</DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />
@@ -129,7 +131,9 @@ export const columns: ColumnDef<InstituicaoEnsinoProps>[] = [
                     onClick={async () => {
                       toast("Instituição de Ensino exluido com Sucesso. ✅");
                       meta?.removeRow(dataRow.key);
-                      await api.delete(`/instituicaoEnsino/${dataRow.id}`);
+                      await api.delete(
+                        `/instituicaoEnsino/${dataRow.idInstituicaoEnsino}`
+                      );
                     }}
                   >
                     Confirmar
