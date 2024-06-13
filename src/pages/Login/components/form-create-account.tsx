@@ -17,6 +17,7 @@ import api from "@/services/api";
 import Grid from "@mui/material/Grid";
 import { toast } from "sonner";
 import { Label } from "@/components/ui/label";
+import { cpfApplyMask, numbersOnly } from "@/lib/utils";
 
 export default function FormCreateAccount() {
   const navigate = useNavigate();
@@ -37,18 +38,27 @@ export default function FormCreateAccount() {
 
   function handleCredencial(event: ChangeEvent<HTMLInputElement>) {
     event.preventDefault();
+    const { name, value } = event.target;
     setCredencial({
       ...credencial,
-      [event.target.name]: event.target.value,
+      [name]: value,
     });
     setAccount({
       ...account,
-      [event.target.name]: event.target.value,
+      [name]: value,
     });
   }
 
   function checkPasswordsMatch() {
     return account.senha === account.confirmarSenha;
+  }
+
+  function handleCpfChange(event: ChangeEvent<HTMLInputElement>) {
+    const maskedCpf = cpfApplyMask(event.target.value);
+    setAccount({
+      ...account,
+      cpfCnpj: maskedCpf,
+    });
   }
 
   async function handleLogin(event: FormEvent) {
@@ -81,7 +91,7 @@ export default function FormCreateAccount() {
       await api
         .post("/Usuario", {
           nome: account.nome,
-          cpfCnpj: account.cpfCnpj,
+          cpfCnpj: numbersOnly(account.cpfCnpj),
           email: account.email,
           senha: account.senha,
           userType: account.userTypeDto,
@@ -208,8 +218,9 @@ export default function FormCreateAccount() {
                       name="cpfCnpj"
                       type="text"
                       placeholder="CPF"
+                      maxLength={11}
                       value={account.cpfCnpj}
-                      onChange={(e) => handleCredencial(e)}
+                      onChange={handleCpfChange}
                     />
                   </div>
                 </Grid>

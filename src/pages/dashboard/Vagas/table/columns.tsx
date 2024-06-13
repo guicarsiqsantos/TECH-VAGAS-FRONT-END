@@ -24,6 +24,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
+import { format } from "date-fns";
 
 export type VagasProps = {
   vagasId: number;
@@ -38,6 +39,7 @@ export type VagasProps = {
   horarioSaida: string;
   totalHorasSemanis: string;
   concedenteId: number;
+  razaoSocial: string;
   cargoId: number;
   key: number;
 };
@@ -70,9 +72,13 @@ export const columns: ColumnDef<VagasProps>[] = [
   {
     accessorKey: "dataPublicacao",
     header: "Data da Publicação",
+    cell: ({ row }) => {
+      const date = new Date(row.original.dataPublicacao);
+      return format(date, "dd/MM/yyyy");
+    },
   },
   {
-    accessorKey: "concedenteId",
+    accessorKey: "razaoSocial",
     header: "Empresa",
   },
   {
@@ -82,16 +88,24 @@ export const columns: ColumnDef<VagasProps>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="text-center w-full"
         >
           Quantidade
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
+    cell: ({ row }) => (
+      <div className="text-center w-full">{row.original.quantidade}</div>
+    ),
   },
   {
     accessorKey: "dataLimite",
     header: "Data limite",
+    cell: ({ row }) => {
+      const date = new Date(row.original.dataLimite);
+      return format(date, "dd/MM/yyyy");
+    },
   },
   {
     accessorKey: "localidade",
@@ -100,6 +114,14 @@ export const columns: ColumnDef<VagasProps>[] = [
   {
     accessorKey: "descricao",
     header: "Descrição",
+    cell: ({ row }) => {
+      const descricao = row.original.descricao;
+      const truncatedDescricao =
+        descricao.length > 150
+          ? descricao.substring(0, 150) + "..."
+          : descricao;
+      return truncatedDescricao;
+    },
   },
   {
     id: "actions",
@@ -137,7 +159,7 @@ export const columns: ColumnDef<VagasProps>[] = [
                     {`Deseja mesmo excluir esta vaga?`}
                   </AlertDialogTitle>
                   <AlertDialogDescription>
-                    Uma vez cancelada, não será possosível reverter esa ação
+                    Uma vez cancelada, não será possível reverter essa ação
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -147,7 +169,7 @@ export const columns: ColumnDef<VagasProps>[] = [
                   <AlertDialogAction
                     className="w-full bg-destructive text-destructive-foreground hover:bg-destructive/90"
                     onClick={async () => {
-                      toast("Vaga Excluido com Sucesso. ✅");
+                      toast("Vaga Excluída com Sucesso. ✅");
                       meta?.removeRow(dataRow.key);
                       await api.delete(`/vagas/${dataRow.vagasId}`);
                     }}

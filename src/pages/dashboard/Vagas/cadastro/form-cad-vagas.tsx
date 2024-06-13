@@ -35,7 +35,7 @@ const formSchema = z.object({
     .max(50),
   descricao: z
     .string()
-    .max(200, { message: "Limite de 200 caracteres" })
+    .max(800, { message: "Limite de 800 caracteres" })
     .optional(),
   titulo: z
     .string()
@@ -45,9 +45,9 @@ const formSchema = z.object({
     .min(2, { message: "Local do trabalho deve ter no mínimo 2 caracteres." }),
   horarioEntrada: z.string().min(1, { message: "Horário é obrigatório." }),
   horarioSaida: z.string().min(1, { message: "Horário é obrigatório." }),
-  totalHorasSemanis: z.string().min(3, {
+  totalHorasSemanis: z.string().min(1, {
     message:
-      "Total de horas trabalhadas semanais deve ter no mínimo 3 caracteres.",
+      "Total de horas trabalhadas semanais deve ter no mínimo 1 caracteres.",
   }),
   concedenteId: z.number(),
   cargoId: z.number(),
@@ -95,7 +95,7 @@ const FormCadastroVagas = ({ data }: { data: VagasProps }) => {
       totalHorasSemanis: "",
       concedenteId: 0,
       cargoId: 0,
-    }
+    },
   });
 
   useEffect(() => {

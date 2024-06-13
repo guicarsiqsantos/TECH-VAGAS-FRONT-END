@@ -5,15 +5,27 @@ import api from "@/services/api";
 import { Button } from "@/components/ui/button";
 import { PlusCircleIcon, PrinterIcon } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { ConcendenteProps } from "../empresas/table/columns";
 
 export default function Vagas() {
   const [data, setData] = useState<VagasProps[]>([]);
 
   useEffect(() => {
     (async () => {
-      const data: VagasProps[] = await (await api.get("/vagas")).data;
+      // Obtenha os dados do Concedente
+      const dataConcedente: ConcendenteProps[] = await (await api.get("/Concedente")).data;
 
-      const includeKeyData = data.map((item, idx) => {
+      // Crie mapas dos tipos de documento e tipos de estágio usando os IDs como chaves
+      const concedenteMap = new Map(dataConcedente.map(concedente => [concedente.concedenteId, concedente]));
+
+      const data: VagasProps[] = await (await api.get("/Vagas")).data;
+
+      const dataComDescricao = data.map(vaga => ({
+        ...vaga,
+        razaoSocial: concedenteMap.get(vaga.concedenteId)?.razaoSocial || 'Descrição não encontrada'
+      }));
+
+      const includeKeyData = dataComDescricao.map((item, idx) => {
         return { ...item, key: idx };
       });
 

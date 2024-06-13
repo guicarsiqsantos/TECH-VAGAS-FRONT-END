@@ -6,6 +6,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { VagasProps } from "@/pages/dashboard/Vagas/table/columns";
 import { Card } from "./ui/card";
 import { Loader2Icon } from "lucide-react";
+import { format } from "date-fns"; // Importa o locale em português do Brasil, se necessário
 
 const Vagas = () => {
   const [data, setData] = useState<VagasProps[]>([]);
@@ -38,7 +39,7 @@ const Vagas = () => {
   return (
     <div>
       {isLoading ? (
-        <div className="flex gap2 h-40 justify-center items-center">
+        <div className="flex gap-2 h-40 justify-center items-center">
           <Loader2Icon className="animate-spin" />
           <p className="text-2xl">Carregando</p>
         </div>
@@ -61,9 +62,9 @@ const Vagas = () => {
                   <LocationOnIcon className="mr-2" />
                   <p>{vaga.localidade}</p>
                 </div>
-                <div className="flex">
-                  <AccessTimeIcon />
-                  <p>{vaga.dataLimite}</p>
+                <div className="flex items-center gap-1">
+                  <AccessTimeIcon fontSize="small" />
+                  <p>{format(new Date(vaga.dataLimite), "dd/MM/yyyy")}</p>
                 </div>
               </div>
             </div>
