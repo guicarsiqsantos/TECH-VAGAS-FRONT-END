@@ -31,7 +31,7 @@ const BuscarVagas = () => {
         <Search />
       </div>
 
-      <div className="px-[15%] py-16">
+      <div className="px-[15%] pb-16 pt-8">
         <div className="flex justify-between items-center mb-4">
           <p className="text-xl">{`${totalVagas} vagas de estágio disponíveis`}</p>
           <SelectD />

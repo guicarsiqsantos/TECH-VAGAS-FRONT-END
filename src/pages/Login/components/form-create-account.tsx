@@ -18,9 +18,11 @@ import Grid from "@mui/material/Grid";
 import { toast } from "sonner";
 import { Label } from "@/components/ui/label";
 import { cpfApplyMask, numbersOnly } from "@/lib/utils";
+import { useAuth } from "@/Context/AuthContext";
 
 export default function FormCreateAccount() {
   const navigate = useNavigate();
+  const { setAuthState } = useAuth();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
   const [credencial, setCredencial] = useState({
@@ -33,7 +35,7 @@ export default function FormCreateAccount() {
     email: "",
     senha: "",
     confirmarSenha: "",
-    userTypeDto: 1,
+    userTypeDto: 2,
   });
 
   function handleCredencial(event: ChangeEvent<HTMLInputElement>) {
@@ -65,18 +67,24 @@ export default function FormCreateAccount() {
     event.preventDefault();
     setIsLoading(true);
     try {
-      await api
-        .post("/Sessao/Autentication", {
-          email: credencial.email,
-          senha: credencial.password,
-        })
-        .then((resp) => {
-          console.log(resp.data);
-          navigate("/dashboard");
-        })
-        .finally(() => setIsLoading(false));
-    } catch (error) {
-      setMessage("Falha ao realizar login, verefique suas credenciais");
+      const response = await api.post("/Sessao/Autentication", {
+        email: credencial.email,
+        senha: credencial.password,
+      });
+
+      //Erro para corrigir, status e token esta vindo undefined --------------------------------------------------------------
+      const { status, token } = response.data;
+      localStorage.setItem("authToken", token);
+      localStorage.setItem("authStatus", status);
+
+      setAuthState({ isAuthenticated: true, token, status });
+      navigate("/");
+    } catch (error: any) {
+      setMessage(
+        error.message || "Falha ao realizar login, verifique suas credenciais"
+      );
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -88,24 +96,24 @@ export default function FormCreateAccount() {
     }
     setIsLoading(true);
     try {
-      await api
-        .post("/Usuario", {
-          nome: account.nome,
-          cpfCnpj: numbersOnly(account.cpfCnpj),
-          email: account.email,
-          senha: account.senha,
-          userType: account.userTypeDto,
-        })
-        .then((resp) => {
-          console.log(resp.data);
-          toast.success("Conta criada com sucesso.");
-        })
-        .finally(() => setIsLoading(false));
+      const response = await api.post("/Usuario", {
+        nome: account.nome,
+        cpfCnpj: numbersOnly(account.cpfCnpj),
+        email: account.email,
+        senha: account.senha,
+        userType: account.userTypeDto,
+      });
+
+      console.log(response.data);
+      toast.success("Conta criada com sucesso.");
+      navigate("/login");
     } catch (error) {
       console.log(error);
       setMessage(
         "Falha ao realizar a criação da conta, verifique as credenciais"
       );
+    } finally {
+      setIsLoading(false);
     }
   }
 

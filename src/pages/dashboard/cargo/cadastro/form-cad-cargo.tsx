@@ -16,19 +16,18 @@ import { Button } from "@/components/ui/button";
 import api from "@/services/api";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { CargoProps } from "../table/columns";
-import { cnpjApplyMask, numbersOnly } from "@/lib/utils";
 
 const formSchema = z.object({
-    Descricao: z
+  Descricao: z
     .string()
     .min(2, { message: "Descrção deve ter no mínino 2 caracteres" })
-    .max(50),
-    Tipo: z
+    .max(200),
+  Tipo: z
     .string()
     .min(2, {
       message: "Tipo deve ter no mínino 2 caracteres",
     })
-    .max(50)
+    .max(50),
 });
 
 type FormCadastroProps = z.infer<typeof formSchema>;
@@ -43,8 +42,8 @@ const FormCadastroCargo = ({ data }: { data: CargoProps }) => {
       Tipo: data.tipo,
     },
     defaultValues: {
-        Descricao: "",
-        Tipo: "",
+      Descricao: "",
+      Tipo: "",
     },
   });
 
@@ -52,7 +51,7 @@ const FormCadastroCargo = ({ data }: { data: CargoProps }) => {
     try {
       isEdit
         ? await api
-            .post("/Cargo", { ...values})
+            .post("/Cargo", { ...values })
             .finally(() => navigate("/dashboard/cargo"))
         : await api
             .put(`/Cargo/${data.cargoId}`, {
@@ -104,7 +103,6 @@ const FormCadastroCargo = ({ data }: { data: CargoProps }) => {
                 </FormItem>
               )}
             />
-
           </CardContent>
 
           <CardFooter className="flex gap-4">
