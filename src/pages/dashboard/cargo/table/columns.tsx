@@ -59,12 +59,20 @@ export const columns: ColumnDef<CargoProps>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "descricao",
-    header: "Descrição",
-  },
-  {
     accessorKey: "tipo",
     header: "Tipo",
+  },
+  {
+    accessorKey: "descricao",
+    header: "Descrição",
+    cell: ({ row }) => {
+      const descricao = row.original.descricao;
+      const truncatedDescricao =
+        descricao.length > 120
+          ? descricao.substring(0, 120) + "..."
+          : descricao;
+      return truncatedDescricao;
+    },
   },
   {
     id: "actions",
