@@ -67,17 +67,16 @@ export default function FormCreateAccount() {
     event.preventDefault();
     setIsLoading(true);
     try {
-      const response = await api.post("/Sessao/Autentication", {
+      const auth = await api.post("/Sessao/Autentication", {
         email: credencial.email,
         senha: credencial.password,
       });
 
-      //Erro para corrigir, status e token esta vindo undefined --------------------------------------------------------------
-      const { status, token } = response.data;
-      localStorage.setItem("authToken", token);
+      const { status, response } = auth.data;
+      localStorage.setItem("authToken", response);
       localStorage.setItem("authStatus", status);
 
-      setAuthState({ isAuthenticated: true, token, status });
+      setAuthState({ isAuthenticated: true, token: response, status });
       navigate("/");
     } catch (error: any) {
       setMessage(
@@ -96,7 +95,7 @@ export default function FormCreateAccount() {
     }
     setIsLoading(true);
     try {
-      const response = await api.post("/Usuario", {
+      await api.post("/Usuario", {
         nome: account.nome,
         cpfCnpj: numbersOnly(account.cpfCnpj),
         email: account.email,
@@ -104,7 +103,6 @@ export default function FormCreateAccount() {
         userType: account.userTypeDto,
       });
 
-      console.log(response.data);
       toast.success("Conta criada com sucesso.");
       navigate("/login");
     } catch (error) {

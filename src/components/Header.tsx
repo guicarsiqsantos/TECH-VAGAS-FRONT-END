@@ -1,8 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { NavLink } from "react-router-dom";
 import Image from "../assets/images/logo_techvagas.png";
+import { useAuth } from "@/Context/AuthContext";
 
 export default function Header() {
+  const { authState } = useAuth();
+  const { isAuthenticated } = authState;
+
   return (
     <div className="flex items-center justify-around shadow p-2">
       <NavLink to={"/"}>
@@ -22,12 +26,20 @@ export default function Header() {
         </Button>
 
         <div className="flex gap-4">
-          <Button asChild className="bg-blue-500 w-[150px]">
-            <NavLink to={"/login"}>Entrar</NavLink>
-          </Button>
-          <Button asChild variant="outline" className="w-[150px]">
-            <NavLink to={"/login"}>Cadastrar</NavLink>
-          </Button>
+          {isAuthenticated ? (
+            <Button asChild className="bg-blue-500 w-[150px]">
+              <NavLink to={"/login"}>Logout</NavLink>
+            </Button>
+          ) : (
+            <>
+              <Button asChild className="bg-blue-500 w-[150px]">
+                <NavLink to={"/login"}>Entrar</NavLink>
+              </Button>
+              <Button asChild variant="outline" className="w-[150px]">
+                <NavLink to={"/login"}>Cadastrar</NavLink>
+              </Button>
+            </>
+          )}
         </div>
       </div>
     </div>
