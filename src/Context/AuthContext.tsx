@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -8,6 +14,7 @@ interface AuthState {
 
 interface AuthContextProps {
   authState: AuthState;
+  logout: () => void;
   setAuthState: React.Dispatch<React.SetStateAction<AuthState>>;
 }
 
@@ -20,8 +27,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     status: null,
   });
 
+  useEffect(() => {
+    const auth = localStorage.getItem("authToken");
+    if (auth) {
+      setAuthState({
+        isAuthenticated: true,
+        token: auth,
+        status: localStorage.getItem("authStatus"),
+      });
+    }
+  }, []);
+
+  const logout = () => {};
+
   return (
-    <AuthContext.Provider value={{ authState, setAuthState }}>
+    <AuthContext.Provider value={{ authState, setAuthState, logout }}>
       {children}
     </AuthContext.Provider>
   );
