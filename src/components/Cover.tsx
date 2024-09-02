@@ -34,8 +34,8 @@ export default function Cover() {
           </Button>
         </div>
       </div>
-      <div className="mr-[10%] max-xl:hidden">
-        <img src={imgMemLaptop} alt="home" className="h-full" />
+      <div className="mr-[20vh] max-[1300px]:hidden">
+        <img src={imgMemLaptop} alt="home" className="w-full h-full object-fill" height={0} width={0} />
       </div>
     </div>
   );
