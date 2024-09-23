@@ -19,18 +19,32 @@ import Grid from "@mui/material/Grid";
 import { Label } from "@/components/ui/label";
 import { cpfApplyMask, numbersOnly } from "@/lib/utils";
 import { useAuth } from "@/Context/AuthContext";
-import { AlertCircle, CheckCircle} from "lucide-react";
-import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { AlertCircle, CheckCircle } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 const accountSchema = z.object({
-  nome: z.string().min(3, { message: "O nome deve ter pelo menos 3 caracteres" }),
+  nome: z
+    .string()
+    .min(3, { message: "O nome deve ter pelo menos 3 caracteres" }),
   cpfCnpj: z
     .string()
     .min(11, { message: "CPF/CNPJ deve ter 11 caracteres" })
     .max(14, { message: "CPF/CNPJ não deve exceder 14 caracteres" }),
   email: z.string().email({ message: "Formato de e-mail inválido" }),
-  senha: z.string().min(6, { message: "A senha deve ter pelo menos 6 caracteres" }),
-  confirmarSenha: z.string().min(6, { message: "Confirme a senha corretamente" }),
+  senha: z
+    .string()
+    .min(6, { message: "A senha deve ter pelo menos 6 caracteres" }),
+  confirmarSenha: z
+    .string()
+    .min(6, { message: "Confirme a senha corretamente" }),
 });
 
 export default function FormCreateAccount() {
@@ -111,7 +125,7 @@ export default function FormCreateAccount() {
 
   async function handleCreateAccount(event: FormEvent) {
     event.preventDefault();
-  
+
     // Validar os dados com Zod
     const result = accountSchema.safeParse(account);
     if (!result.success) {
@@ -122,15 +136,15 @@ export default function FormCreateAccount() {
       setErrors(fieldErrors); // Mantém os erros no estado
       return;
     }
-  
+
     if (!checkPasswordsMatch()) {
       setErrors({ confirmarSenha: "As senhas não coincidem" }); // Mantém os erros no estado
       return;
     }
-  
+
     // Limpar os erros apenas se não houver erros de validação
     setErrors({});
-  
+
     setIsLoading(true);
     try {
       await api.post("/Usuario", {
@@ -140,16 +154,18 @@ export default function FormCreateAccount() {
         senha: account.senha,
         userType: account.userTypeDto,
       });
-  
+
       setIsConfirmDialogOpen(true);
-      navigate("/login");
     } catch (error) {
       console.log(error);
-      setErrors({ geral: "Falha ao realizar a criação da conta, verifique as credenciais" });
+      setErrors({
+        geral: "Falha ao realizar a criação da conta, verifique as credenciais",
+      });
     } finally {
       setIsLoading(false);
     }
   }
+
   return (
     <Tabs defaultValue="authLogin" className="w-[600px]">
       <TabsList className="grid w-full grid-cols-2">
@@ -219,7 +235,8 @@ export default function FormCreateAccount() {
             <CardHeader>
               <CardTitle>Criar sua conta</CardTitle>
               <CardDescription className="text-gray-400 font-light">
-                Crie sua conta e inicie sua jornada para um futuro profissional extraordinário!
+                Crie sua conta e inicie sua jornada para um futuro profissional
+                extraordinário!
               </CardDescription>
             </CardHeader>
 
@@ -297,28 +314,41 @@ export default function FormCreateAccount() {
                       onChange={(e) => handleCredencial(e)}
                     />
                   </div>
-                  {errors.confirmarSenha && renderErrorBadge(errors.confirmarSenha)}
+                  {errors.confirmarSenha &&
+                    renderErrorBadge(errors.confirmarSenha)}
                 </Grid>
               </Grid>
             </CardContent>
-            
+
             <CardFooter>
               <Button disabled={isLoading} type="submit" className="w-full">
-                {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
+                {isLoading && (
+                  <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                )}
                 Criar Conta
               </Button>
 
-              <AlertDialog open={isConfirmDialogOpen} onOpenChange={setIsConfirmDialogOpen}>
+              <AlertDialog
+                open={isConfirmDialogOpen}
+                onOpenChange={setIsConfirmDialogOpen}
+              >
                 <AlertDialogContent>
                   <AlertDialogHeader className="space-y-3">
-                    <AlertDialogTitle className="text-center">Conta Criada com Sucesso!</AlertDialogTitle>
+                    <AlertDialogTitle className="flex flex-col justify-center items-center">
+                      <CheckCircle size={60} />
+                      Conta Criada com Sucesso!
+                    </AlertDialogTitle>
                     <AlertDialogDescription className="flex flex-col items-center">
-                      <CheckCircle size={60}/>
                       A sua conta foi criada. Você pode agora acessar o sistema.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
-                    <AlertDialogAction onClick={() => navigate("/login")} className="w-full">
+                    <AlertDialogAction
+                      onClick={() => {
+                        setIsConfirmDialogOpen(false);
+                      }}
+                      className="w-full"
+                    >
                       Ir para o login
                     </AlertDialogAction>
                   </AlertDialogFooter>
