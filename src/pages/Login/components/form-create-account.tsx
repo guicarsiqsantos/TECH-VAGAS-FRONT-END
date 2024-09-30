@@ -36,7 +36,7 @@ const accountSchema = z.object({
     .min(3, { message: "O nome deve ter pelo menos 3 caracteres" }),
   cpfCnpj: z
     .string()
-    .min(11, { message: "CPF/CNPJ deve ter 11 caracteres" })
+    .min(14, { message: "CPF/CNPJ deve ter 11 caracteres" })
     .max(14, { message: "CPF/CNPJ não deve exceder 14 caracteres" }),
   email: z.string().email({ message: "Formato de e-mail inválido" }),
   senha: z
@@ -215,7 +215,7 @@ export default function FormCreateAccount() {
                   required
                 />
               </div>
-              {errors.nome && renderErrorBadge(errors.senha)}
+              {errors.senha && renderErrorBadge(errors.senha)}
             </CardContent>
             <CardFooter>
               <Button disabled={isLoading} type="submit" className="w-full">
@@ -317,6 +317,7 @@ export default function FormCreateAccount() {
                   {errors.confirmarSenha &&
                     renderErrorBadge(errors.confirmarSenha)}
                 </Grid>
+                {errors.geral && renderErrorBadge(errors.geral)}
               </Grid>
             </CardContent>
 
