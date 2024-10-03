@@ -1,6 +1,5 @@
 /** @format */
 "use client";
-import React from "react";
 import {
   BarChart as BarGraph,
   ResponsiveContainer,

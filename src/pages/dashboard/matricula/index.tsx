@@ -1,23 +1,20 @@
 import { useEffect, useState } from "react";
-import { MatriculaProps, columns } from "./table/columns"; 
+import { MatriculaProps, columns } from "./table/columns";
 import { DataTable } from "../../../components/data-table";
 import api from "@/services/api";
 import { Button } from "@/components/ui/button";
 import { PlusCircleIcon, PrinterIcon } from "lucide-react";
 import { NavLink } from "react-router-dom";
-import { cnpjApplyMask } from "@/lib/utils";
 
-export default function Matriculas() { 
-  const [data, setData] = useState<MatriculaProps[]>([]); 
+export default function Matriculas() {
+  const [data, setData] = useState<MatriculaProps[]>([]);
 
   useEffect(() => {
     (async () => {
-      const data: MatriculaProps[] = await ( 
-        await api.get("/matricula")
-      ).data;
+      const data: MatriculaProps[] = await (await api.get("/matricula")).data;
 
       const includeKeyData = data.map((item, idx) => {
-        return { ...item, MatriculaId: idx }; 
+        return { ...item, MatriculaId: idx };
       });
 
       setData(includeKeyData);
@@ -30,7 +27,9 @@ export default function Matriculas() {
         <span className="font-bold text-3xl">Matrículas cadastradas</span> {}
       </div>
       <div className="flex gap-2">
-        <NavLink to="/dashboard/matriculas/cadastro"> {}
+        <NavLink to="/dashboard/matriculas/cadastro">
+          {" "}
+          {}
           <Button variant="secondary" className="gap-2">
             <PlusCircleIcon /> Nova Matrícula
           </Button>

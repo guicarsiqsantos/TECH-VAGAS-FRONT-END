@@ -5,19 +5,16 @@ import api from "@/services/api";
 import { Button } from "@/components/ui/button";
 import { PlusCircleIcon, PrinterIcon } from "lucide-react";
 import { NavLink } from "react-router-dom";
-import { cnpjApplyMask } from "@/lib/utils";
 
 export default function Cargos() {
   const [data, setData] = useState<CargoProps[]>([]);
 
   useEffect(() => {
     (async () => {
-      const data: CargoProps[] = await (
-        await api.get("/cargo")
-      ).data;
+      const data: CargoProps[] = await (await api.get("/cargo")).data;
 
       const includeKeyData = data.map((item, idx) => {
-        return { ...item,  key: idx };
+        return { ...item, key: idx };
       });
 
       setData(includeKeyData);

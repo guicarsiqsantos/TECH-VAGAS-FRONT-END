@@ -15,8 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import api from "@/services/api";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { MatriculaProps } from "../table/columns"; // 
-import { cnpjApplyMask, numbersOnly } from "@/lib/utils";
+import { MatriculaProps } from "../table/columns"; //
 
 const formSchema = z.object({
   NumeroMatricula: z
@@ -27,13 +26,13 @@ const formSchema = z.object({
 
 type FormCadastroProps = z.infer<typeof formSchema>;
 
-const FormCadastroMatricula = ({ data }: { data: MatriculaProps }) => { 
+const FormCadastroMatricula = ({ data }: { data: MatriculaProps }) => {
   const navigate = useNavigate();
-  const isEdit = Object.keys(data).length !== 0; 
+  const isEdit = Object.keys(data).length !== 0;
   const form = useForm<FormCadastroProps>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      NumeroMatricula: data.NumeroMatricula || "", 
+      NumeroMatricula: data.NumeroMatricula || "",
     },
   });
 
@@ -41,7 +40,10 @@ const FormCadastroMatricula = ({ data }: { data: MatriculaProps }) => {
     try {
       isEdit
         ? await api
-            .put(`/matricula/${data.MatriculaId}`, { ...values, MatriculaId: data.MatriculaId })
+            .put(`/matricula/${data.MatriculaId}`, {
+              ...values,
+              MatriculaId: data.MatriculaId,
+            })
             .finally(() => navigate("/dashboard/matricula"))
         : await api
             .post("/matricula", values)
