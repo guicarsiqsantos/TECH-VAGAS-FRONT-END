@@ -113,7 +113,7 @@ export default function FormCreateAccount() {
       localStorage.setItem("authStatus", status);
 
       setAuthState({ isAuthenticated: true, token: response, status });
-      navigate("/");
+      navigate("/dashboard");
     } catch (error: any) {
       setErrors(
         error.message || "Falha ao realizar login, verifique suas credenciais"
