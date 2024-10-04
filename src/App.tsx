@@ -5,6 +5,8 @@ import Page404 from "./pages/404";
 import Dashboard from "./pages/dashboard";
 import LayoutDashboard from "./layout/LayoutDashboard";
 import Empresas from "./pages/dashboard/empresas";
+import TipoDocumento from './pages/dashboard/TipoDocumento';
+import TipoEstagio from './pages/dashboard/TipoEstagio';
 import CadastroEmpresa from "./pages/dashboard/empresas/cadastro";
 import PerfilEmpresa from "./pages/dashboard/empresas/cadastro/perfil";
 import Vagas from "./pages/dashboard/Vagas";
@@ -14,6 +16,8 @@ import CadastroInstituicaoEnsino from "./pages/dashboard/InstituicaoEnsino/cadas
 import BuscarVagas from "./pages/Home/BuscarVagas";
 import Cargos from "./pages/dashboard/cargo";
 import CadastroCargo from "./pages/dashboard/cargo/cadastro";
+import CadastroTipoDocumento from "./pages/dashboard/TipoDocumento/cadastro";
+import CadastroTipoEstagio from "./pages/dashboard/TipoEstagio/cadastro";
 
 function App() {
   return (
@@ -32,6 +36,9 @@ function App() {
           element={<InstituicaoEnsino />}
         />
         <Route path="/dashboard/cargo" element={<Cargos />} />
+        <Route path='/dashboard/tipoestagio' element={<TipoEstagio />} />
+        <Route path='/dashboard/tipodocumento' element={<TipoDocumento />} />
+
         <Route
           path="/dashboard/empresas/cadastro/:id?"
           element={<CadastroEmpresa />}
@@ -51,6 +58,14 @@ function App() {
         <Route
           path="/dashboard/empresas/perfil/:id"
           element={<PerfilEmpresa />}
+        />
+        <Route
+          path="/dashboard/tipodocumento/cadastro/:id?"
+          element={<CadastroTipoDocumento />}
+        />
+        <Route
+          path="/dashboard/tipoestagio/cadastro/:id?"
+          element={<CadastroTipoEstagio />}
         />
       </Route>
     </Routes>

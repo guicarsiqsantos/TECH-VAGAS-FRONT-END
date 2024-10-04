@@ -99,6 +99,22 @@ export default function Sidebar() {
                 Cargo
               </Button>
             </NavLink>
+            <NavLink to="/dashboard/TipoDocumento">
+              <Button variant="ghost" className="w-full justify-start mt-1">
+                <LocationCityIcon
+                  style={{ width: "15px", marginRight: "9px" }}
+                />
+                Tipo Documento
+              </Button>
+            </NavLink>
+            <NavLink to="/dashboard/TipoEstagio">
+              <Button variant="ghost" className="w-full justify-start mt-1">
+                <LocationCityIcon
+                  style={{ width: "15px", marginRight: "9px" }}
+                />
+                Tipo Estagio
+              </Button>
+            </NavLink>
           </div>
         </div>
       </div>
