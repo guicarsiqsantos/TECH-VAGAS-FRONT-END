@@ -7,6 +7,8 @@ import { VagasProps } from "@/pages/dashboard/Vagas/table/columns";
 import { Card } from "./ui/card";
 import { Loader2Icon } from "lucide-react";
 import { format } from "date-fns"; // Importa o locale em português do Brasil, se necessário
+import { Button } from "./ui/button";
+import { NavLink } from "react-router-dom";
 
 const Vagas = () => {
   const [data, setData] = useState<VagasProps[]>([]);
@@ -54,8 +56,15 @@ const Vagas = () => {
               <ApartmentIcon />
             </div>
             <div className="w-full">
-              <h1 className="text-[#22C964] font-medium">{vaga.titulo}</h1>
-              <p className="pb-3">{`Estágio - ${vaga.quantidade} vagas`}</p>
+              <div className="flex justify-between">
+                <div>
+                  <h1 className="text-[#22C964] font-medium">{vaga.titulo}</h1>
+                  <p className="pb-3">{`Estágio - ${vaga.quantidade} vagas`}</p>
+                </div>
+                <NavLink to={`/details/${vaga.vagasId}`}>
+                  <Button variant="outline">Detalhes da vaga</Button>
+                </NavLink>
+              </div>
               <p>{vaga.descricao}</p>
               <div className="flex justify-between mt-4">
                 <div className="flex">
