@@ -10,15 +10,24 @@ interface CardCandidatarProps {
   concedenteId: Number;
   titulo: string;
   dataFinal: Date;
+  dataInicio: Date;
 }
+const calculateBar = (dataInicio: Date, dataLimite: Date) => {
+  const totalDays = differenceInDays(dataLimite, dataInicio);
+  const daysPassed = differenceInDays(new Date(), dataInicio);
+  const progress = (daysPassed / totalDays) * 100;
+  return progress;
+};
 
 const CardCandidatar = ({
   concedenteId,
   titulo,
   dataFinal,
+  dataInicio,
 }: CardCandidatarProps) => {
   const [concedente, setConcedente] = useState<ConcendenteProps | null>(null);
   const today = new Date();
+  const progress = calculateBar(dataInicio, dataFinal);
 
   const diferencaDias = differenceInDays(dataFinal, today);
 
@@ -46,7 +55,7 @@ const CardCandidatar = ({
       </div>
       <div className="pt-4">
         <p className="text-xs">A vaga encerra em {diferencaDias} dias</p>
-        <Progress value={90} className="h-2" />
+        <Progress value={progress} className="h-2" />
       </div>
     </div>
   );

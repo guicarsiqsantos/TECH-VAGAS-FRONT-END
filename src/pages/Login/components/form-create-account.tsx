@@ -108,6 +108,12 @@ export default function FormCreateAccount() {
         senha: credencial.password,
       });
 
+      const user = await api.get(`/Sessao/GetUser/${auth.data.response}`);
+
+      console.log(user.data);
+
+      localStorage.setItem("user", JSON.stringify(user.data));
+
       const { status, response } = auth.data;
       localStorage.setItem("authToken", response);
       localStorage.setItem("authStatus", status);

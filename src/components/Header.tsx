@@ -14,8 +14,12 @@ import { useAuth } from "@/Context/AuthContext";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 export default function Header() {
-  const { authState } = useAuth();
+  const { authState, logout, getUser } = useAuth();
   const { isAuthenticated } = authState;
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <div className="flex items-center justify-between shadow-lg p-2 md:px-[10%] bg-white">
@@ -36,7 +40,9 @@ export default function Header() {
         {isAuthenticated ? (
           <div className="flex items-center space-x-3">
             <h2 className="text-gray-700 text-xs md:text-sm font-semibold">
-              Guilherme Carvalho
+              {getUser()?.response?.nome.split(" ")[0] +
+                " " +
+                getUser()?.response?.nome.split(" ")[1]}
             </h2>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -61,7 +67,10 @@ export default function Header() {
                 <DropdownMenuItem>Support</DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <NavLink to="/">
-                  <DropdownMenuItem className="font-semibold">
+                  <DropdownMenuItem
+                    className="font-semibold"
+                    onClick={handleLogout}
+                  >
                     Log out
                   </DropdownMenuItem>
                 </NavLink>

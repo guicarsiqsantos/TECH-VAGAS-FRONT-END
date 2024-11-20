@@ -61,6 +61,7 @@ const DetailsVagas = () => {
                 concedenteId={vagas.concedenteId}
                 titulo={vagas.titulo}
                 dataFinal={new Date(vagas.dataLimite)}
+                dataInicio={new Date(vagas.dataPublicacao)}
               />
             </div>
           </Grid>
