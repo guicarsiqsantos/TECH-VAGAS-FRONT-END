@@ -41,6 +41,7 @@ type FormCadastroProps = z.infer<typeof formSchema>;
 const FormCadastroEmpresa = ({ data }: { data: ConcendenteProps }) => {
   const navigate = useNavigate();
   const isEdit = Object.keys(data).length === 0; // true or false
+  
   const form = useForm<FormCadastroProps>({
     resolver: zodResolver(formSchema),
     values: {

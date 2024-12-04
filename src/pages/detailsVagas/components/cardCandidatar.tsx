@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { useAuth } from "@/Context/AuthContext";
 import { ConcendenteProps } from "@/pages/dashboard/empresas/table/columns";
 import api from "@/services/api";
 import { differenceInDays } from "date-fns";
 import { Building2, Share2 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface CardCandidatarProps {
   concedenteId: Number;
@@ -25,11 +27,20 @@ const CardCandidatar = ({
   dataFinal,
   dataInicio,
 }: CardCandidatarProps) => {
+  const { authState } = useAuth();
+  const navigate = useNavigate();
   const [concedente, setConcedente] = useState<ConcendenteProps | null>(null);
   const today = new Date();
   const progress = calculateBar(dataInicio, dataFinal);
 
   const diferencaDias = differenceInDays(dataFinal, today);
+
+  const handleClickCandidatar = () => {
+    //verificar se o usuario terminou o cadastro
+    if (!authState.aluno) {
+      navigate("/perfil");
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -49,7 +60,10 @@ const CardCandidatar = ({
         {concedente && (
           <p className="text-xs py-4 text-gray-400">{concedente.razaoSocial}</p>
         )}
-        <Button className="w-full bg-blue-500 hover:bg-blue-600">
+        <Button
+          className="w-full bg-blue-500 hover:bg-blue-600"
+          onClick={handleClickCandidatar}
+        >
           Candidatar
         </Button>
       </div>

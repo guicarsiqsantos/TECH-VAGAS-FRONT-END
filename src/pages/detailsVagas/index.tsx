@@ -54,6 +54,19 @@ const DetailsVagas = () => {
               Descrição
             </h3>
             <p className="mt-4 text-justify">{vagas.descricao}</p>
+            <h3 className="flex border-b-2 mt-5 border-green-600 w-[50px]">
+              Outros
+            </h3>
+            <div className="flex items-center mt-4">
+              <div className="space-y-2">
+                <p>Local de trabalho: {vagas.localidadeTrabalho}</p>
+                <p>Total de horas semanais: {vagas.totalHorasSemanis} horas</p>
+                <p>
+                  Horário do trabalho: {vagas.horarioEntrada} ás{" "}
+                  {vagas.horarioSaida} horas
+                </p>
+              </div>
+            </div>
           </Grid>
           <Grid item xs={12} md={4}>
             <div className="ml-10">

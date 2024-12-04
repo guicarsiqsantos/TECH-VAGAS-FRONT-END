@@ -18,7 +18,7 @@ import api from "@/services/api";
 import Grid from "@mui/material/Grid";
 import { Label } from "@/components/ui/label";
 import { cpfApplyMask, numbersOnly } from "@/lib/utils";
-import { useAuth } from "@/Context/AuthContext";
+import { IAluno, useAuth } from "@/Context/AuthContext";
 import { AlertCircle, CheckCircle } from "lucide-react";
 import {
   AlertDialog,
@@ -29,6 +29,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { toast } from "sonner";
+import { format } from "date-fns";
+import { pt } from "date-fns/locale";
 
 const accountSchema = z.object({
   nome: z
@@ -101,7 +104,9 @@ export default function FormCreateAccount() {
 
   async function handleLogin(event: FormEvent) {
     event.preventDefault();
+    let dataAluno: IAluno | null = null;
     setIsLoading(true);
+
     try {
       const auth = await api.post("/Sessao/Autentication", {
         email: credencial.email,
@@ -110,15 +115,36 @@ export default function FormCreateAccount() {
 
       const user = await api.get(`/Sessao/GetUser/${auth.data.response}`);
 
-      console.log(user.data);
-
-      localStorage.setItem("user", JSON.stringify(user.data));
+      // Usuário aluno buscar dados dos alunos
+      try {
+        if (user.data.response.userType === 2) {
+          const aluno = await api.get(`/Aluno/${user.data.response.cpfCnpj}`);
+          dataAluno = aluno.data;
+        }
+      } catch (error: any) {
+        toast("Seu cadastro não esta completo!", {
+          description: format(new Date(), "d, MMMM yyyy", { locale: pt }),
+          action: {
+            label: "Ir para perfil",
+            onClick: () => navigate("/Perfil"),
+          },
+        });
+      }
 
       const { status, response } = auth.data;
       localStorage.setItem("authToken", response);
       localStorage.setItem("authStatus", status);
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ ...user.data, aluno: dataAluno })
+      );
 
-      setAuthState({ isAuthenticated: true, token: response, status });
+      setAuthState({
+        isAuthenticated: true,
+        token: response,
+        status,
+        aluno: dataAluno,
+      });
       navigate("/");
     } catch (error: any) {
       setErrors(

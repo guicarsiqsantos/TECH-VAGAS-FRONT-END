@@ -60,7 +60,9 @@ export default function Header() {
                 <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                  <DropdownMenuItem>Perfil</DropdownMenuItem>
+                  <NavLink to="/perfil">
+                    <DropdownMenuItem>Perfil</DropdownMenuItem>
+                  </NavLink>
                   <DropdownMenuItem>Configuração</DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
