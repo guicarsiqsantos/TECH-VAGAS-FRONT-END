@@ -1,17 +1,27 @@
 import Header from "@/components/Header";
 import api from "@/services/api";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { VagasProps } from "../dashboard/Vagas/table/columns";
 import Search from "@/components/Search";
-import { Building2, Clock } from "lucide-react";
+import { Building2, CheckCircle, Clock } from "lucide-react";
 import { format } from "date-fns";
 import { Grid } from "@mui/material";
 import CardCandidatar from "./components/cardCandidatar";
 import Footer from "@/components/footer";
+import {
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog";
 
 const DetailsVagas = () => {
   const [vagas, setVagas] = useState<VagasProps | null>(null);
+  const [candidaturaConcluida, setCandidaturaConcluida] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
@@ -20,6 +30,10 @@ const DetailsVagas = () => {
       setVagas(data);
     })();
   }, []);
+
+  const handleGotoMinhasCandidaturas = () => {
+    setCandidaturaConcluida(false);
+  };
 
   if (!vagas) {
     return;
@@ -72,9 +86,11 @@ const DetailsVagas = () => {
             <div className="ml-10">
               <CardCandidatar
                 concedenteId={vagas.concedenteId}
+                vagaId={vagas.vagasId}
                 titulo={vagas.titulo}
                 dataFinal={new Date(vagas.dataLimite)}
                 dataInicio={new Date(vagas.dataPublicacao)}
+                concluidaCandidatura={() => setCandidaturaConcluida(true)}
               />
             </div>
           </Grid>
@@ -83,6 +99,27 @@ const DetailsVagas = () => {
       <div className="flex w-full pt-20">
         <Footer />
       </div>
+      <AlertDialog
+        open={candidaturaConcluida}
+        onOpenChange={handleGotoMinhasCandidaturas}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader className="space-y-3">
+            <AlertDialogTitle className="flex flex-col justify-center items-center">
+              <CheckCircle size={60} />
+              Candidatura bem sucedida!
+            </AlertDialogTitle>
+            <AlertDialogDescription className="flex flex-col items-center">
+              Você se candidatou-se a uma vaga com sucesso.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction onClick={() => {}} className="w-full">
+              <NavLink to="/minhasVagas">Ver minhas vagas</NavLink>
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };

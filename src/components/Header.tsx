@@ -63,6 +63,10 @@ export default function Header() {
                   <NavLink to="/perfil">
                     <DropdownMenuItem>Perfil</DropdownMenuItem>
                   </NavLink>
+                  <NavLink to="/minhasVagas">
+                    <DropdownMenuItem>Minhas vagas</DropdownMenuItem>
+                  </NavLink>
+
                   <DropdownMenuItem>Configuração</DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />

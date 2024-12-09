@@ -16,6 +16,7 @@ import Cargos from "./pages/dashboard/cargo";
 import CadastroCargo from "./pages/dashboard/cargo/cadastro";
 import DetailsVagas from "./pages/detailsVagas";
 import PerfilUser from "./pages/Home/PerfilUser";
+import MinhasVagas from "./pages/MinhasVagas";
 
 function App() {
   return (
@@ -24,7 +25,8 @@ function App() {
       <Route path="/buscarVagas" element={<BuscarVagas />} />
       <Route path="/login" element={<Login />} />
       <Route path="/details/:id?" element={<DetailsVagas />} />
-      <Route path="perfil" element={<PerfilUser />} />
+      <Route path="/perfil" element={<PerfilUser />} />
+      <Route path="/minhasvagas" element={<MinhasVagas />} />
       <Route path="/*" element={<Page404 />} />
 
       <Route element={<LayoutDashboard />}>

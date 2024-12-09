@@ -147,6 +147,7 @@ export default function FormCreateAccount() {
       });
       navigate("/");
     } catch (error: any) {
+      toast("OPS, algo deu errado ao realizar login. ❌");
       setErrors(
         error.message || "Falha ao realizar login, verifique suas credenciais"
       );

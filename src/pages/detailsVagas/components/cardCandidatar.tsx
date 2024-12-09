@@ -3,16 +3,34 @@ import { Progress } from "@/components/ui/progress";
 import { useAuth } from "@/Context/AuthContext";
 import { ConcendenteProps } from "@/pages/dashboard/empresas/table/columns";
 import api from "@/services/api";
-import { differenceInDays } from "date-fns";
+import { differenceInDays, format } from "date-fns";
 import { Building2, Share2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+interface CandidatarVaga {
+  candidatoId: number;
+  dataCandidatura: string;
+  alunoId: number;
+  vagaId: number;
+  statusVaga: StatusVaga;
+}
+
+enum StatusVaga {
+  EmAnalise = 1,
+  EsperandoAvaliacao = 2,
+  EntrevistaAgendada = 3,
+  Concluido = 4,
+  Recusado = 5,
+}
+
 interface CardCandidatarProps {
   concedenteId: Number;
+  vagaId: number;
   titulo: string;
   dataFinal: Date;
   dataInicio: Date;
+  concluidaCandidatura: () => void;
 }
 const calculateBar = (dataInicio: Date, dataLimite: Date) => {
   const totalDays = differenceInDays(dataLimite, dataInicio);
@@ -23,9 +41,11 @@ const calculateBar = (dataInicio: Date, dataLimite: Date) => {
 
 const CardCandidatar = ({
   concedenteId,
+  vagaId,
   titulo,
   dataFinal,
   dataInicio,
+  concluidaCandidatura,
 }: CardCandidatarProps) => {
   const { authState } = useAuth();
   const navigate = useNavigate();
@@ -35,10 +55,23 @@ const CardCandidatar = ({
 
   const diferencaDias = differenceInDays(dataFinal, today);
 
-  const handleClickCandidatar = () => {
+  const handleClickCandidatar = async () => {
     //verificar se o usuario terminou o cadastro
     if (!authState.aluno) {
       navigate("/perfil");
+    }
+    const candidatarVaga: CandidatarVaga = {
+      candidatoId: 0,
+      vagaId: vagaId,
+      alunoId: Number(authState.aluno?.alunoId),
+      statusVaga: StatusVaga.EmAnalise,
+      dataCandidatura: format(new Date(), "yyyy-MM-dd"),
+    };
+
+    const resul = await api.post("/Candidato", candidatarVaga);
+
+    if (resul.status === 201) {
+      concluidaCandidatura();
     }
   };
 
